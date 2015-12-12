@@ -38,7 +38,7 @@ public class TopTeacherAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
@@ -83,7 +83,7 @@ public class TopTeacherAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			TopTeacherDAO dao = new TopTeacherDAO();
 			Boolean tag = dao.insertTeacher(mapPara);
@@ -103,7 +103,7 @@ public class TopTeacherAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			TopTeacherDAO dao = new TopTeacherDAO();
 			Boolean tag = dao.updateTeacher(mapPara);

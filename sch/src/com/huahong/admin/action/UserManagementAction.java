@@ -43,7 +43,7 @@ public class UserManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
@@ -90,7 +90,7 @@ public class UserManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			MD5 md = new MD5();
 			String mi = md.getMD5ofStr(mapPara.get("USER_PASSWORD").toString());
@@ -114,7 +114,7 @@ public class UserManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			UserManagementDAO dao = new UserManagementDAO();
 			boolean tag = dao.updateUser(mapPara);

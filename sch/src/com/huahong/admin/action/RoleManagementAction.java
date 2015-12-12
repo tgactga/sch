@@ -41,7 +41,7 @@ public class RoleManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
@@ -93,7 +93,7 @@ public class RoleManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			RoleManagementDAO dao = new RoleManagementDAO();
 			boolean tag = dao.insertRole(mapPara);
@@ -113,7 +113,7 @@ public class RoleManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			RoleManagementDAO dao = new RoleManagementDAO();
 			boolean tag = dao.updateRole(mapPara);
@@ -133,7 +133,7 @@ public class RoleManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			RoleManagementDAO dao = new RoleManagementDAO();
 			List roleList = dao.getRoleTreeList();//查询所有树节点
@@ -170,7 +170,7 @@ public class RoleManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			String ID = mapPara.get("ID").toString();
 			String[] treeId = mapPara.get("NODEID").toString().split("☆");

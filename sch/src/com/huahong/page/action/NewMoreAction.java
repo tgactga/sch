@@ -32,7 +32,7 @@ public class NewMoreAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			String curPage = mapPara.get("curPage").toString();
 			String everyEva = mapPara.get("everyEva").toString();

@@ -47,7 +47,7 @@ public class ScoreManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			//System.out.println(mapPara);
@@ -121,7 +121,7 @@ public class ScoreManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			String rootPath = request.getSession().getServletContext().getRealPath("/");
 			//先建文件夹
@@ -215,7 +215,7 @@ public class ScoreManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			String SCORE_GRADE_S = mapPara.get("SCORE_GRADE").toString();
@@ -256,7 +256,7 @@ public class ScoreManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			ScoreManagementDAO dao = new ScoreManagementDAO();

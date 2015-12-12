@@ -37,7 +37,7 @@ public class KaoShiManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
@@ -76,7 +76,7 @@ public class KaoShiManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			KaoShiManagementDAO dao = new KaoShiManagementDAO();
 			boolean tag = dao.insertKaoShi(mapPara);
@@ -96,7 +96,7 @@ public class KaoShiManagementAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			KaoShiManagementDAO dao = new KaoShiManagementDAO();
 			boolean tag = dao.updateKaoShi(mapPara);

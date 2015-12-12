@@ -60,7 +60,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
@@ -107,7 +107,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			XiaoYouDAO dao = new XiaoYouDAO();
 			boolean tag = dao.insertNew(mapPara);
@@ -127,7 +127,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			XiaoYouDAO dao = new XiaoYouDAO();
 			boolean tag = dao.updateNew(mapPara);
@@ -147,7 +147,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			String curPage = mapPara.get("curPage").toString();
 			String everyEva = mapPara.get("everyEva").toString();
@@ -183,7 +183,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
@@ -234,7 +234,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			XiaoYouDAO dao = new XiaoYouDAO();
 			String XIAOYOU_CLASS = mapPara.get("XIAOYOU_CLASS").toString();
@@ -257,7 +257,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			XiaoYouDAO dao = new XiaoYouDAO();
 			String XIAOYOU_CLASS = mapPara.get("XIAOYOU_CLASS").toString();
@@ -322,7 +322,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			String BIYE = mapPara.get("BIYE").toString();
 			XiaoYouDAO dao = new XiaoYouDAO();
@@ -352,7 +352,7 @@ public class XiaoYouAction extends Action{
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=gb2312");
 			String path = request.getContextPath();
 			String rootPath = request.getSession().getServletContext().getRealPath("/");
 			//先建文件夹
