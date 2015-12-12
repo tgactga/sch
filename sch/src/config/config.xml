@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMapConfig 
+ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" 
+ "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<!-- cacheModelsEnabled = 是否启用SqlMapClient 上的缓存机制。建议设为"true"  -->
+	<!-- enhancementEnabled = 是否针对POJO启用字节码增强机制以提升getter/setter的调用效能，避免使用Java Reflect所带来的性能开销。
+	 同时，这也为Lazy Loading带来了极大的性能提升。建议设为"true" -->
+	 <!-- lazyLoadingEnabled = 是否启用延迟加载机制，建议设为"true" -->
+	 <!-- errorTracingEnabled = 是否启用错误日志，在开发期间建议设为"true"以方便调试 -->
+	 <!-- maxRequests = 最大并发请求数（Statement 并发数）-->
+	 <!-- maxSessions = 最大Session 数。即当前最大允许的并发SqlMapClient 数。-->
+	 <!-- maxTransactions = 最大并发事务数 -->
+	 	<!-- useStatementNamespaces = 是否使用Statement命名空间。这里的命名空间指的是映射文件中，sqlMap节点
+	的namespace属性，如在上例中针对t_user表的映射文件sqlMap节点：<sqlMap namespace="User"
+	这里，指定了此sqlMap节点下定义的操作均从属于"User"命名空间。在useStatementNamespaces="true"的情
+	况下，Statement调用需追加命名空间，如：sqlMap.update("User.updateUser",user);
+	否则直接通过Statement名称调用即可，如：sqlMap.update("updateUser",user);
+		但请注意此时需要保证所有映射文件中，Statement定义无重名。  -->
+	 
+	<properties resource="config/config.properties" />
+	
+	<settings cacheModelsEnabled="true" 	enhancementEnabled="false" 	lazyLoadingEnabled="true" 	maxRequests="32" 	maxSessions="10" 	maxTransactions="5" 	useStatementNamespaces="false" />
+
+	
+	<transactionManager type="JDBC">
+
+		<!-- 
+			<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}" />
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+			<property name="JDBC.DefaultAutoCommit" value="true" />
+			<property name="Pool.MaximumActiveConnections" value="20" />
+			<property name="Pool.MaximumIdleConnections" value="10" />
+			<property name="Pool.MaximumCheckoutTime" value="120000" />
+			<property name="Pool.TimeToWait" value="500" />
+			<property name="Pool.PingQuery" value="select 1 from ACCOUNT" />
+			<property name="Pool.PingEnabled" value="false" />
+			<property name="Pool.PingConnectionsOlderThan" value="1" />
+			<property name="Pool.PingConnectionsNotUsedFor" value="1" />
+			</dataSource>
+		-->
+
+		<!-- 
+		<dataSource type="JNDI">
+			<property name="DataSource" value="java:comp/env/jdbc/alarm" />
+		</dataSource>
+		-->
+ 
+		<dataSource type="DBCP">
+			<property name="JDBC.Driver" value="${driver}" />
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+			  
+			  
+			 
+		</dataSource>
+
+	</transactionManager>
+
+	<!-- add your sql map file here -->
+	<sqlMap resource="config/mappings/system.xml"/>
+	<sqlMap resource="config/mappings/page.xml"/>
+	<sqlMap resource="config/mappings/score.xml"/>
+</sqlMapConfig>

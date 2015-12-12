@@ -1,0 +1,24 @@
+.tdfir{
+	height:30px;
+	border-top:1px solid #2286C2;
+	border-left:1px solid #2286C2;
+	border-right:1px solid #2286C2;
+	background:#CFF4FF;
+}
+.tdMid{
+	border-top:1px solid #2286C2;
+}
+.tdSen{
+	border-top:1px solid #2286C2;
+	border-right:1px solid #2286C2;
+}
+td input {
+	margin-left:10px;
+	width:90%;
+	border:1px solid #7B9FB7;
+}
+td select {
+	margin-left:10px;
+	width:50%;
+	border:1px solid #7B9FB7;
+}

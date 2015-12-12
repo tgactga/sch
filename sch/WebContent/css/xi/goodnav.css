@@ -1,0 +1,13 @@
+﻿img { vertical-align: top; border: 0; }
+#hotpic { width: 340px; height: 212px; overflow: hidden; background:#FFF; }
+#NewsPic { position: relative; width: 340px; height: 184px; overflow: hidden; border: solid 1px #000; }
+    #NewsPic a { overflow: visible; border: 0; text-decoration: none; }
+    #NewsPic .Picture { position: absolute; left: 0; top: 0; }
+    #NewsPic .Nav { position: absolute; height: 13px; line-height: 13px; bottom: 0; right: 0; }
+        #NewsPic .Nav span { font-size: 12px; font-weight: 400; color: #FFF; float: right; display: block; width: 24px; text-align: center; background: #000; border-left: solid 1px #FFF; cursor: pointer; }
+            #NewsPic .Nav span.Normal { color: #FFF; background: #000; filter: Alpha(opacity=50); opacity: .5; }
+            #NewsPic .Nav span.Cur { background: #ce0609; color: #FFF; }
+#NewsPicTxt { position: relative; width: 340px; height: 20px; border: 1px; margin: 0;  text-align: center; font-family: Sans-Serif; font-weight: 300; color: #FFF; font-size: 12px; margin-left: auto; margin-right: auto; margin-top: 3px; background:#4490e6;  }
+#NewsPicTxt a { color:#FFF;}
+    #NewsPicTxt a:link, #NewsPicTxt a:visited { font-family: "Microsoft Yahei"; font-size: 12px; font-weight: 400; color: #FFF; text-decoration: none; }
+    #NewsPicTxt a:hover { color: red; }

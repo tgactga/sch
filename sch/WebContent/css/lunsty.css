@@ -1,0 +1,29 @@
+img{border:0px;}
+.bk9{ width:765px; float:right}
+.bk10{border-left :1px solid #7BC1E6;border-right :1px solid #7BC1E6; height: auto;width:763px;overflow:hidden; }
+.bt3_bg{ background-image:url(dxjy/bk6_bg.gif); height:33px;width:100%}
+.n4Tab{clear:both; }
+.n4Tab .TabTitle{ padding-left:7px}
+.n4Tab .TabTitle ul{margin:0; padding:0; }
+.n4Tab .TabTitle li{float:left;list-style-type:none;cursor:pointer;width:116px;color:#333333;}
+.n4Tab .TabTitle li h6 {color:#333333;font-size:13px; font-weight:normal;margin:0;font-weight:bold; width:116px;padding-top:7PX  }
+.n4Tab .TabTitle li h6 a:link{font-size:13px; font-weight:normal;font-weight:bold; color:#333333;width:116px; height:21px; padding-top:7PX }
+.n4Tab .TabTitle li h6 a:hover{font-size:13px; font-weight:normal;font-weight:bold; color:#333333;width:116px; height:21x; padding-top:7PX}
+.n4Tab .TabTitle li h6 a:active{ width:116px; height:28px;color:##333333;}
+.n4Tab .TabTitle li h6 a:active{ width:116px; height:28px;color:##333333;}
+.n4Tab .TabTitle .normal{background-image:url(dxjy/a_2.gif); width:116px; height:28px; color:#FFFFFF }
+.n4Tab .TabTitle .active{background-image:url(dxjy/a_1.gif); width:116px; height:28px;color:#333333;}
+.n4Tab .TabContent {padding:0px; }
+.pic3 {
+	border-width : 1px;
+	border-style : solid;
+	border-color : #cccccc;
+	padding : 2px;
+}
+a:hover .pic3 {
+         border-width : 2px;
+	border-style : solid;
+	border-color : #cccccc;
+	padding : 1px;
+	
+}
