@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMap 
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ERP">
+	<!-- 首页 start -->
+	<!-- 首页热点图片 -->
+	<resultMap id="IndexDAO.getHotNewListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_ORDER" column="NEW_ORDER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="IMG_FILE" column="IMG_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_URL" column="NEW_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="IndexDAO.getHotNewList" resultMap="IndexDAO.getHotNewListMap" parameterClass="java.lang.String">
+		SELECT ID,NEW_TITLE,NEW_ORDER,IMG_FILE,NEW_URL FROM show_img WHERE NEW_TYPE=#NEW_TYPE# ORDER BY NEW_ORDER
+	</select>
+	<!-- 查询首页热点新闻 -->
+	<resultMap id="IndexDAO.getTopNewListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_NUM" column="NEW_NUM" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="SPE_TAG" column="SPE_TAG" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="IndexDAO.getTopNewList" resultMap="IndexDAO.getTopNewListMap" parameterClass="java.util.HashMap">
+		SELECT ID,NEW_TITLE,NEW_TIME,NEW_NUM,SPE_TAG FROM new_content WHERE AUDIT_TAG='2' AND $condition$ ORDER BY ID DESC LIMIT 0,$TIAO$
+	</select>
+	<resultMap id="IndexDAO.getListUserMap" class="java.util.HashMap">
+		<result property="id" column="id" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="xingming" column="xingming" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="IndexDAO.getListUser" resultMap="IndexDAO.getListUserMap" parameterClass="java.util.HashMap">
+		SELECT id,xingming from yonghuzhuce where xingming=#TxtUserName# and mima=#TxtPassword#
+	</select>
+	<!-- 首页 end -->
+	
+	<!-- 新闻更多 start -->
+	<!-- 新闻列表 -->
+	<resultMap id="NewMoreDAO.getMoreNewMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_NUM" column="NEW_NUM" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="NewMoreDAO.getMoreNew" resultMap="NewMoreDAO.getMoreNewMap" parameterClass="java.util.HashMap">
+		SELECT ID,NEW_TITLE,NEW_TIME,NEW_NUM FROM new_content WHERE AUDIT_TAG='2' AND $condition$ ORDER BY ID DESC LIMIT $start$,$everyEva$
+	</select>
+	<!-- 新闻分类 -->
+	<resultMap id="NewMoreDAO.getFenMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CONTENT" column="CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="NewMoreDAO.getFen" resultMap="NewMoreDAO.getFenMap" parameterClass="java.lang.String">
+		SELECT ID,CONTENT FROM tree_base WHERE NEW_TYPE=#ID#
+	</select>
+	<select id="NewMoreDAO.getFenTitle" resultClass="java.lang.String" parameterClass="java.lang.String" remapResults="true">
+		SELECT CONTENT FROM tree_base WHERE ID=#ID#
+	</select>
+	<!-- 新闻更多 end -->
+	
+	<!-- 新闻详情 start -->
+	<!-- 新闻列表 -->
+	<resultMap id="NewDetailDAO.getNewMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_CONTENT" column="NEW_CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TYPE" column="NEW_TYPE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FEN" column="NEW_FEN" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_NUM" column="NEW_NUM" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TYPE_NAME" column="NEW_TYPE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FEN_NAME" column="NEW_FEN_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="NewDetailDAO.getNew" resultMap="NewDetailDAO.getNewMap" parameterClass="java.lang.String">
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,U.USER_NAME AS ISSUER_PER,N.NEW_CONTENT,N.NEW_TYPE,N.NEW_FEN,N.NEW_NUM,
+		T.NAME AS NEW_TYPE_NAME,B.CONTENT AS NEW_FEN_NAME,C.CHU_NAME FROM new_content N 
+		LEFT JOIN tree T ON T.ID = N.NEW_TYPE
+		LEFT JOIN tree_base B ON B.ID = N.NEW_FEN 
+		LEFT JOIN user U ON U.ID = N.ISSUER_PER
+		LEFT JOIN chu C ON C.ID = U.CHU_ID
+		WHERE N.ID=$ID$
+	</select>
+	<update id="NewDetailDAO.addNum"  parameterClass="java.lang.String">
+		UPDATE new_content SET NEW_NUM=NEW_NUM+1 WHERE ID=#ID#
+	</update>
+	<!-- 新闻更多 end -->
+</sqlMap>

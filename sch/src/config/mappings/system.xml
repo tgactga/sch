@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE sqlMap 
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ERP">
+	<!-- 获取表的最大ID -->
+	<select id="GetMaxIdDAO.getMaxId" resultClass="java.lang.String" parameterClass="java.util.HashMap" remapResults="true">
+		SELECT MAX($ID$) FROM $table$
+	</select>
+	<!-- 获取表多少条 -->
+	<resultMap id="CommonFunDAO.getTotalMap" class="java.util.HashMap">
+		<result property="CON" column="CON" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonFunDAO.getTotal" resultMap="CommonFunDAO.getTotalMap" parameterClass="java.lang.String">
+		$condition$
+	</select>
+	<!-- 共用删除 -->
+	<delete id="CommonDAO.deleteCommon"  parameterClass="java.util.HashMap">
+		DELETE FROM $TABLE$ WHERE ID=#ID#
+	</delete>
+	<!-- 后台管理系统登录 -->
+	<resultMap id="AdminLoginDAO.getAdminUserMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_NAME" column="ROLE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="AdminLoginDAO.getAdminUser" resultMap="AdminLoginDAO.getAdminUserMap" parameterClass="java.util.HashMap">
+		SELECT U.ID,U.USER_NAME,R.ROLE_NAME FROM user U 
+		LEFT JOIN role R ON R.ID=U.ROLE_ID WHERE U.USER_CODE=#USER_CODE# AND U.USER_PASSWORD=#USER_PASSWORD_MI#
+	</select>
+	<!-- 左侧树 -->
+	<resultMap id="LeftTreeDAO.searchLeftUserListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PID" column="PID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PATH_FILE" column="PATH_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="LeftTreeDAO.searchLeftUserList" resultMap="LeftTreeDAO.searchLeftUserListMap" parameterClass="java.lang.String">
+		SELECT T.ID,T.PID,T.NAME,T.PATH_FILE FROM user U 
+		LEFT JOIN role_tree R ON R.ROLE_ID = U.ROLE_ID
+		LEFT JOIN tree T ON T.ID=R.TREE_ID WHERE U.ID=$ID$ AND T.IS_LEFT='0'
+	</select>
+	
+	<!-- 文章管理 start -->
+	<!-- 新闻查询 -->
+	<resultMap id="CommonDAO.getNewListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TYPE" column="NEW_TYPE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FEN" column="NEW_FEN" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="AUDIT_TAG" column="AUDIT_TAG" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FENNAME" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonDAO.getNewList" resultMap="CommonDAO.getNewListMap" parameterClass="java.util.HashMap">
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,U.USER_NAME AS ISSUER_PER,N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME FROM new_content N 
+		LEFT JOIN tree_base B ON N.NEW_FEN = B.ID 
+		LEFT JOIN user U ON N.ISSUER_PER = U.ID
+		WHERE N.NEW_TYPE=#NEW_TYPE# $condition$ ORDER BY N.EDIT_TIME DESC LIMIT $page$,$rp$ 
+	</select>
+	<!-- 新闻添加 -->
+	<insert id="CommonDAO.insertNew"  parameterClass="java.util.HashMap">
+		INSERT INTO new_content (NEW_TITLE,NEW_TIME,ISSUER_PER,NEW_CONTENT,STATUS,NEW_TYPE,NEW_FEN,NEW_NUM,AUDIT_TAG,EDIT_TIME) VALUES 
+		(#NEW_TITLE#,#NEW_TIME#,#ISSUER_PER#,#NEW_CONTENT#,'2',#NEW_TYPE#,#NEW_FEN#,0,#AUDIT_TAG#,NOW())
+	</insert>
+	<!-- 新闻信息详细 -->
+	<resultMap id="CommonDAO.getNewDetailMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_CONTENT" column="NEW_CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonDAO.getNewDetail" resultMap="CommonDAO.getNewDetailMap" parameterClass="java.lang.String">
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
+		LEFT JOIN user U ON U.ID=N.ISSUER_PER WHERE N.ID=#ID#
+	</select>
+	<!-- 修改新闻 -->
+	<update id="CommonDAO.updateNew"  parameterClass="java.util.HashMap">
+		UPDATE new_content SET NEW_TITLE=#NEW_TITLE#,NEW_TIME=#NEW_TIME#,ISSUER_PER=#ISSUER_PER#,
+		NEW_CONTENT=#NEW_CONTENT#,AUDIT_TAG=#AUDIT_TAG#,EDIT_TIME=NOW() WHERE ID=#ID#
+	</update>
+	<update id="CommonDAO.updateAuditNew"  parameterClass="java.util.HashMap">
+		UPDATE new_content SET NEW_TITLE=#NEW_TITLE#,NEW_TIME=#NEW_TIME#,
+		NEW_CONTENT=#NEW_CONTENT#,AUDIT_TAG=#AUDIT_TAG#,EDIT_TIME=NOW(),AUDIT_USER=#AUDIT_USER#,AUDIT_TIME=NOW() WHERE ID=#ID#
+	</update>
+	<!-- 查询文章分类 -->
+	<resultMap id="CommonDAO.getFenListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CONTENT" column="CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonDAO.getFenList" resultMap="CommonDAO.getFenListMap" parameterClass="java.lang.String">
+		SELECT ID,CONTENT FROM tree_base WHERE NEW_TYPE=#ID#
+	</select>
+	<!-- 文章管理 end -->
+	
+	<!-- 首页热点图片 start -->
+	<!-- 热点图片查询 -->
+	<resultMap id="HotNewDAO.getHotNewListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_ORDER" column="NEW_ORDER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="IMG_FILE" column="IMG_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_URL" column="NEW_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="HotNewDAO.getHotNewList" resultMap="HotNewDAO.getHotNewListMap" parameterClass="java.util.HashMap">
+		SELECT ID,NEW_TITLE,NEW_ORDER,IMG_FILE,NEW_URL FROM show_img WHERE NEW_TYPE=#NEW_TYPE# ORDER BY NEW_ORDER LIMIT $page$,$rp$ 
+	</select>
+	<resultMap id="HotNewDAO.getHotNewListTypeMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_ORDER" column="NEW_ORDER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="IMG_FILE" column="IMG_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_URL" column="NEW_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="HotNewDAO.getHotNewListType" resultMap="HotNewDAO.getHotNewListTypeMap" parameterClass="java.lang.String">
+		SELECT ID,NEW_TITLE,NEW_ORDER,IMG_FILE,NEW_URL FROM show_img WHERE NEW_TYPE=#NEW_TYPE# 
+	</select>
+	<!-- 热点图片添加 -->
+	<insert id="HotNewDAO.insertHotNew"  parameterClass="java.util.HashMap">
+		INSERT INTO show_img (NEW_TITLE,NEW_ORDER,IMG_FILE,NEW_URL,NEW_TYPE) VALUES 
+		(#NEW_TITLE#,#NEW_ORDER#,#IMG_FILE#,#NEW_URL#,#NEW_TYPE#)
+	</insert>
+	<!-- 热点图片查询详情 -->
+	<resultMap id="HotNewDAO.getHotNewDetMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_ORDER" column="NEW_ORDER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="IMG_FILE" column="IMG_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_URL" column="NEW_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="HotNewDAO.getHotNewDet" resultMap="HotNewDAO.getHotNewDetMap" parameterClass="java.lang.String">
+		SELECT ID,NEW_TITLE,NEW_ORDER,IMG_FILE,NEW_URL FROM show_img WHERE ID=$ID$
+	</select>
+	<!-- 热点图片修改 -->
+	<update id="HotNewDAO.updateHotNew"  parameterClass="java.util.HashMap">
+		UPDATE show_img SET NEW_TITLE=#NEW_TITLE#,NEW_ORDER=#NEW_ORDER#,IMG_FILE=#IMG_FILE#,
+		NEW_URL=#NEW_URL# WHERE ID=#ID#
+	</update>
+	<update id="HotNewDAO.updateHotNewText"  parameterClass="java.util.HashMap">
+		UPDATE show_img SET NEW_TITLE=#NEW_TITLE#,NEW_ORDER=#NEW_ORDER#,IMG_FILE=#IMG_FILE#,
+		NEW_URL=#NEW_URL# WHERE NEW_TYPE=#NEW_TYPE#
+	</update>
+	<!-- 首页热点图片 end -->
+	
+	<!-- 文章审核 start -->
+	<resultMap id="CommonDAO.getAuditNewListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TITLE" column="NEW_TITLE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TIME" column="NEW_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="AUDIT_TAG" column="AUDIT_TAG" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TYPE" column="NEW_TYPE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FENNAME" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonDAO.getAuditNewList" resultMap="CommonDAO.getAuditNewListMap" parameterClass="java.util.HashMap">
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_TYPE,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME,U.USER_NAME FROM new_content N 
+		LEFT JOIN tree_base B 
+		ON N.NEW_FEN = B.ID 
+		LEFT JOIN user U 
+		ON U.ID=N.ISSUER_PER WHERE N.AUDIT_TAG='1' $condition$ ORDER BY N.EDIT_TIME DESC LIMIT $page$,$rp$ 
+	</select>
+	<!-- 文章审核 end -->
+	
+	<!-- 查询所有用户 -->
+	<resultMap id="UserManagementDAO.searchAllUserListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_CODE" column="USER_CODE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_NAME" column="ROLE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="RID" column="RID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_ID" column="CHU_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="REGIST_TIME" column="REGIST_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="LAST_LOGIN_TIME" column="LAST_LOGIN_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="UserManagementDAO.searchAllUserList" resultMap="UserManagementDAO.searchAllUserListMap" parameterClass="java.util.HashMap">
+		SELECT T.ID,T.USER_CODE,T.USER_NAME,R.ROLE_NAME,R.ID as RID,C.CHU_NAME,C.ID AS CHU_ID,
+		DATE_FORMAT(T.REGIST_TIME,'%Y-%m-%d %H:%i') AS REGIST_TIME,
+		DATE_FORMAT(T.LAST_LOGIN_TIME,'%Y-%m-%d %H:%i') AS LAST_LOGIN_TIME FROM USER T 
+		LEFT JOIN role R ON R.ID=T.ROLE_ID
+		LEFT JOIN chu C ON C.ID=T.CHU_ID
+		LIMIT $page$,$rp$
+	</select>
+	<!-- 查询所有角色 -->
+	<resultMap id="UserManagementDAO.getAllRoleMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_CODE" column="ROLE_CODE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_NAME" column="ROLE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_DESCRIBE" column="ROLE_DESCRIBE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="UserManagementDAO.getAllRole" resultMap="UserManagementDAO.getAllRoleMap" parameterClass="java.util.HashMap">
+		SELECT ID,ROLE_CODE,ROLE_NAME,ROLE_DESCRIBE FROM role
+	</select>
+	<insert id="UserManagementDAO.insertUser"  parameterClass="java.util.HashMap">
+		INSERT INTO user (USER_CODE,USER_PASSWORD,USER_NAME,CHU_ID,ROLE_ID,REGIST_TIME) 
+		VALUES (#USER_CODE#,#USER_PASSWORD#,#USER_NAME#,#CHU_ID#,#ROLE_ID#,#REGIST_TIME#)
+	</insert>
+	<update id="UserManagementDAO.updateUser" parameterClass="java.util.HashMap">
+		UPDATE user SET USER_CODE=#USER_CODE#,USER_NAME=#USER_NAME#,CHU_ID=#CHU_ID#,ROLE_ID=#ROLE_ID# WHERE ID=#ID#
+	</update>
+	
+	<resultMap id="RoleManagementDAO.searchRoleListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_CODE" column="ROLE_CODE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_NAME" column="ROLE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_DESCRIBE" column="ROLE_DESCRIBE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="RoleManagementDAO.searchRoleList" resultMap="RoleManagementDAO.searchRoleListMap" parameterClass="java.util.HashMap">
+		SELECT ID,ROLE_CODE,ROLE_NAME,ROLE_DESCRIBE FROM role $condition$ LIMIT $page$,$rp$ 
+	</select>
+	<!-- 权限树查询 -->
+	<resultMap id="RoleManagementDAO.getRoleTreeListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PID" column="PID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PATH_FILE" column="PATH_FILE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="RoleManagementDAO.getRoleTreeList" resultMap="RoleManagementDAO.getRoleTreeListMap" parameterClass="java.util.HashMap">
+		SELECT ID,PID,NAME,PATH_FILE FROM tree
+	</select>
+	<!-- 获取该角色有的权限 -->
+	<resultMap id="RoleManagementDAO.getRoleHaveTreeListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_ID" column="ROLE_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TREE_ID" column="TREE_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="RoleManagementDAO.getRoleHaveTreeList" resultMap="RoleManagementDAO.getRoleHaveTreeListMap" parameterClass="java.util.HashMap">
+		SELECT ID,ROLE_ID,TREE_ID FROM role_tree WHERE ROLE_ID=#ID#
+	</select>
+	<insert id="RoleManagementDAO.insertRole" parameterClass="java.util.HashMap">
+		INSERT INTO role (ROLE_CODE,ROLE_NAME,ROLE_DESCRIBE) VALUES (#ROLE_CODE#,#ROLE_NAME#,#ROLE_DESCRIBE#)
+	</insert>
+	<update id="RoleManagementDAO.updateRole" parameterClass="java.util.HashMap">
+		UPDATE role SET ROLE_CODE=#ROLE_CODE#,ROLE_NAME=#ROLE_NAME#,ROLE_DESCRIBE=#ROLE_DESCRIBE# WHERE ID=#ID#
+	</update>
+	<!-- 删除旧的权限 -->
+	<delete id="RoleManagementDAO.deleteOldRole"  parameterClass="java.lang.String">
+		DELETE FROM role_tree WHERE ROLE_ID=#ID#
+	</delete>
+	<!-- 分配权限添加 -->
+	<insert id="RoleManagementDAO.insertAssign"  parameterClass="java.util.HashMap">
+		INSERT INTO role_tree (ROLE_ID,TREE_ID) VALUES (#ROLE_ID#,#TREE_ID#)
+	</insert>
+	
+	<resultMap id="TopTeacherDAO.getTeacherListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NAME" column="TEACH_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_KEMU" column="TEACH_KEMU" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NIANJI" column="TEACH_NIANJI" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_PHOTO" column="TEACH_PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_URL" column="TEACH_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="TopTeacherDAO.getTeacherList" resultMap="TopTeacherDAO.getTeacherListMap" parameterClass="java.util.HashMap">
+		SELECT ID,TEACH_NAME,TEACH_KEMU,TEACH_NIANJI,TEACH_PHOTO,TEACH_URL FROM god_teacher WHERE TYPE=#TYPE# LIMIT $page$,$rp$ 
+	</select>
+	<resultMap id="TopTeacherDAO.getTopTeacherDetMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NAME" column="TEACH_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_KEMU" column="TEACH_KEMU" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NIANJI" column="TEACH_NIANJI" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_PHOTO" column="TEACH_PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_URL" column="TEACH_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="TopTeacherDAO.getTopTeacherDet" resultMap="TopTeacherDAO.getTopTeacherDetMap" parameterClass="java.lang.String">
+		SELECT ID,TEACH_NAME,TEACH_KEMU,TEACH_NIANJI,TEACH_PHOTO,TEACH_URL FROM god_teacher WHERE ID=#ID#
+	</select>
+	<insert id="TopTeacherDAO.insertTeacher"  parameterClass="java.util.HashMap">
+		INSERT INTO god_teacher (TEACH_NAME,TEACH_KEMU,TEACH_NIANJI,TEACH_PHOTO,TEACH_URL,TYPE) VALUES (#TEACH_NAME#,#TEACH_KEMU#,#TEACH_NIANJI#,#TEACH_PHOTO#,#TEACH_URL#,#TYPE#)
+	</insert>
+	<update id="TopTeacherDAO.updateTeacher"  parameterClass="java.util.HashMap">
+		UPDATE god_teacher SET TEACH_NAME=#TEACH_NAME#,TEACH_KEMU=#TEACH_KEMU#,TEACH_NIANJI=#TEACH_NIANJI#,TEACH_PHOTO=#TEACH_PHOTO#,
+		TEACH_URL=#TEACH_URL# WHERE ID=#ID#
+	</update>
+	<resultMap id="TopTeacherDAO.getAllTeacherListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NAME" column="TEACH_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_KEMU" column="TEACH_KEMU" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_NIANJI" column="TEACH_NIANJI" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_PHOTO" column="TEACH_PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TEACH_URL" column="TEACH_URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="TopTeacherDAO.getAllTeacherList" resultMap="TopTeacherDAO.getAllTeacherListMap" parameterClass="java.lang.String">
+		SELECT ID,TEACH_NAME,TEACH_KEMU,TEACH_NIANJI,TEACH_PHOTO,TEACH_URL FROM god_teacher WHERE TYPE=#TYPE#
+	</select>
+	<resultMap id="ChuManagementDAO.searchAllChuMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="ChuManagementDAO.searchAllChu" resultMap="ChuManagementDAO.searchAllChuMap">
+		SELECT ID,CHU_NAME FROM chu
+	</select>
+	<resultMap id="ChuManagementDAO.searchClassListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="ChuManagementDAO.searchClassList" resultMap="ChuManagementDAO.searchClassListMap" parameterClass="java.util.HashMap">
+		SELECT ID,CHU_NAME FROM chu LIMIT $page$,$rp$
+	</select>
+	<insert id="ChuManagementDAO.insertChu"  parameterClass="java.util.HashMap">
+		INSERT INTO chu (CHU_NAME) VALUES (#CHU_NAME#)
+	</insert>
+	<insert id="ChuManagementDAO.updateChu"  parameterClass="java.util.HashMap">
+		UPDATE chu SET CHU_NAME=#CHU_NAME# WHERE ID=#ID#
+	</insert>
+	<resultMap id="XiaoYouDAO.getXiaoYouListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PHOTO" column="PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TOP_SHOW" column="TOP_SHOW" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getXiaoYouList" resultMap="XiaoYouDAO.getXiaoYouListMap" parameterClass="java.util.HashMap">
+		SELECT ID,NAME,BIYE,PHOTO,TOP_SHOW FROM xiaoyou LIMIT $page$,$rp$ 
+	</select>
+	<insert id="XiaoYouDAO.insertNew"  parameterClass="java.util.HashMap">
+		INSERT INTO xiaoyou (NAME,BIYE,PHOTO,JIANJIE,TOP_SHOW) VALUES 
+		(#NAME#,#BIYE#,#PHOTO#,#JIANJIE#,#TOP_SHOW#)
+	</insert>
+	<resultMap id="XiaoYouDAO.getNewFileDetailMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PHOTO" column="PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="JIANJIE" column="JIANJIE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TOP_SHOW" column="TOP_SHOW" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getNewFileDetail" resultMap="XiaoYouDAO.getNewFileDetailMap" parameterClass="java.lang.String">
+		SELECT ID,NAME,BIYE,PHOTO,JIANJIE,TOP_SHOW FROM xiaoyou WHERE ID=#ID#
+	</select>
+	<update id="XiaoYouDAO.updateNew"  parameterClass="java.util.HashMap">
+		UPDATE xiaoyou SET NAME=#NAME#,BIYE=#BIYE#,PHOTO=#PHOTO#,JIANJIE=#JIANJIE#,TOP_SHOW=#TOP_SHOW# WHERE ID=#ID#
+	</update>
+	<resultMap id="XiaoYouDAO.getXiaoYouTopListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PHOTO" column="PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TOP_SHOW" column="TOP_SHOW" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getXiaoYouTopList" resultMap="XiaoYouDAO.getXiaoYouTopListMap" parameterClass="java.util.HashMap">
+		SELECT ID,NAME,BIYE,PHOTO,TOP_SHOW FROM xiaoyou WHERE TOP_SHOW='1'
+	</select>
+	<resultMap id="XiaoYouDAO.getMoreXiaoYouMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NAME" column="NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="PHOTO" column="PHOTO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="TOP_SHOW" column="TOP_SHOW" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getMoreXiaoYou" resultMap="XiaoYouDAO.getMoreXiaoYouMap" parameterClass="java.util.HashMap">
+		SELECT ID,NAME,BIYE,PHOTO,TOP_SHOW FROM xiaoyou LIMIT $start$,$everyEva$
+	</select>
+	
+	<resultMap id="XiaoYouDAO.getXiaoYouMingListMap" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="XIAOYOU_SUO" column="XIAOYOU_SUO" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="XIAOYOU_CLASS" column="XIAOYOU_CLASS" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="XIAOYOU_NAME" column="XIAOYOU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getXiaoYouMingList" resultMap="XiaoYouDAO.getXiaoYouMingListMap" parameterClass="java.util.HashMap">
+		SELECT ID,XIAOYOU_SUO,BIYE,XIAOYOU_CLASS,XIAOYOU_NAME FROM xiaoyou_ming LIMIT $page$,$rp$ 
+	</select>
+	<insert id="XiaoYouDAO.insertXiaoYouMing"  parameterClass="java.util.HashMap">
+		INSERT INTO xiaoyou_ming (XIAOYOU_SUO,BIYE,XIAOYOU_CLASS,XIAOYOU_CLASS_ORD,XIAOYOU_NAME) VALUES 
+		(#XIAOYOU_SUO#,#BIYE#,#XIAOYOU_CLASS#,#XIAOYOU_CLASS_ORD#,#XIAOYOU_NAME#)
+	</insert>
+	<update id="XiaoYouDAO.updatetXiaoYouMing"  parameterClass="java.util.HashMap">
+		UPDATE xiaoyou_ming SET XIAOYOU_NAME=#XIAOYOU_NAME#,XIAOYOU_CLASS=#XIAOYOU_CLASS#,
+		XIAOYOU_CLASS_ORD=#XIAOYOU_CLASS_ORD#,
+		BIYE=#BIYE#,XIAOYOU_SUO=#XIAOYOU_SUO# WHERE ID=#ID#
+	</update>
+	<resultMap id="XiaoYouDAO.getBiYeListMap" class="java.util.HashMap">
+		<result property="BIYE" column="BIYE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getBiYeList" resultMap="XiaoYouDAO.getBiYeListMap" parameterClass="java.lang.String">
+		SELECT DISTINCT BIYE FROM xiaoyou_ming WHERE XIAOYOU_SUO=$XIAOYOU_SUO$
+	</select>
+	<resultMap id="XiaoYouDAO.getXiaoYouMingBiYeListMap" class="java.util.HashMap">
+		<result property="XIAOYOU_NAME" column="XIAOYOU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="XIAOYOU_CLASS" column="XIAOYOU_CLASS" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="XiaoYouDAO.getXiaoYouMingBiYeList" resultMap="XiaoYouDAO.getXiaoYouMingBiYeListMap" parameterClass="java.util.HashMap">
+		SELECT XIAOYOU_NAME,XIAOYOU_CLASS FROM xiaoyou_ming WHERE BIYE=$BIYE$ AND XIAOYOU_SUO=$XIAOYOU_SUO$ ORDER BY XIAOYOU_CLASS_ORD
+	</select>
+</sqlMap>

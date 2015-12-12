@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="loginForm" type="com.huahong.erp.util.LoginForm" />
+	</form-beans>
+	<global-exceptions />
+	<global-forwards type="org.apache.struts.action.ActionForward">
+		<forward name="error" path="/jsp/error.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action  input="/login.jsp"
+			path="/LoginAction" scope="request"
+			type="com.huahong.system.action.LoginAction">
+			<forward name="login" path="/login.jsp"/>
+			<forward name="index" path="/index.jsp" redirect="true" />
+			<forward name="failureHttp" path="/httpLogin.jsp" />
+			<forward name="failureBase" path="/baseLogin.jsp" />
+		</action>
+		<action path="/AdminLoginAction" type="com.huahong.admin.action.AdminLoginAction">
+		</action>
+		<action path="/CommonAction" type="com.huahong.admin.action.CommonAction">
+		</action>
+		<action path="/HotNewAction" type="com.huahong.admin.action.HotNewAction">
+		</action>
+		<action path="/IndexAction" type="com.huahong.page.action.IndexAction">
+		</action>
+		<action path="/NewDetailAction" type="com.huahong.page.action.NewDetailAction">
+		</action>
+		<action path="/NewMoreAction" type="com.huahong.page.action.NewMoreAction">
+		</action>
+		<action path="/UserManagementAction" type="com.huahong.admin.action.UserManagementAction">
+		</action>
+		<action path="/RoleManagementAction" type="com.huahong.admin.action.RoleManagementAction">
+		</action>
+		<action path="/AuditNewsAction" type="com.huahong.admin.action.AuditNewsAction">
+		</action>
+		<action path="/TopTeacherAction" type="com.huahong.admin.action.TopTeacherAction">
+		</action>
+		<action path="/ClassManagementAction" type="com.huahong.score.action.ClassManagementAction">
+		</action>
+		<action path="/KaoShiManagementAction" type="com.huahong.score.action.KaoShiManagementAction">
+		</action>
+		<action path="/ScoreManagementAction" type="com.huahong.score.action.ScoreManagementAction">
+		</action>
+		<action path="/StatManagementAction" type="com.huahong.score.action.StatManagementAction">
+		</action>
+		<action path="/ChuManagementManagement" type="com.huahong.admin.action.ChuManagementManagement">
+		</action>
+		<action path="/XiaoYouAction" type="com.huahong.admin.action.XiaoYouAction">
+		</action>
+	</action-mappings>
+	<message-resources parameter="com.huahong.erp.ApplicationResources" />
+</struts-config>

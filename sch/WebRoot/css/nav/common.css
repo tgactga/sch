@@ -1,0 +1,93 @@
+body {
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+	font-family:宋体;
+}
+.clearfix {
+	display: block;
+}
+li {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+a {
+	text-decoration: none; outline-style: none;
+}
+.invisible {
+	display: none;
+}
+.align-r {
+	float: right;
+}
+.align-l {
+	float: left;
+}
+.mpanel {
+	position:relative;margin: 0px auto; width: 980px;background:url('../../images/web/main_03.png')
+}
+.header {
+	height: auto;
+}
+.header .logo-txt {
+	float: left;
+}
+.header .logo-txt a {
+	line-height: 104px; font-family: Verdana,"宋体"; font-size: 48px; font-weight: bold;
+}
+.header .site-info {
+	color: rgb(103, 84, 65); padding-top: 20px; float: right;
+}
+.header .site-info li {
+	padding: 0px 10px 0px 18px; float: left;
+}
+.header .si-reg {
+	background: url("images/register.gif") no-repeat left 2px;
+}
+.header .si-usr {
+	background: url("images/usr.gif") no-repeat left 1px;
+}
+.header .si-re {
+	background: url("images/re.gif") no-repeat left 2px;
+}
+.header .si-quit {
+	background: url("images/quit.gif") no-repeat left 2px;
+}
+.header .nav {
+	height: 30px; line-height: 30px;
+}
+.header .nav li {
+	height: 30px; line-height: 30px; float: left; position: relative; z-index: 1104;
+}
+.header .nav li a {
+	padding: 0px 12px; color: white; font-size: 14px; font-weight: bold; display: block;
+}
+.header .nav .pad-t {
+	background: url("images/submenu-t.png") no-repeat; height: 21px;
+}
+.header .nav .pad-b {
+	background: url("images/submenu-b.png") no-repeat; height: 18px;
+}
+.header .nav .sub-menu .panel {
+	background: url("images/submenu-m.png") repeat-y; padding: 0px 0px;
+}
+.header .nav .sub-menu .item {
+	border-top-color: black; border-bottom-color: white; border-top-width: 0px; border-bottom-width: 0px; border-top-style: solid; border-bottom-style: solid;
+}
+.header .nav .sub-menu {
+	left: 0px; top: 30px; width: 85px; right: 0px; display: none; filter: alpha(opacity=80); position: absolute; z-index: 1105; opacity: 0.85; -moz-opacity: 0.85; -khtml-opacity: 0.85;
+}
+.header .nav li:hover .sub-menu {
+	margin-left: 0%; display: block;
+}
+.header .nav .sub-menu a {
+	padding: 0px; width: 100%; text-align: center; color: rgb(255, 255, 255); line-height: 30px; font-size: 14px; font-weight: normal; cursor: pointer;background:#3397d4;
+}
+.header .nav .sub-menu a:hover {
+	background-color: rgb(234, 52, 44);
+}
+.header .nav .sub-menu .panel .first {
+	border-top-style: none;
+}
+.header .nav .sub-menu .panel .last {
+	border-bottom-style: none;
+}
