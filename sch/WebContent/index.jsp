@@ -76,7 +76,7 @@ $(function(){
 		<div class="huandeng fdL">
 			<script type="text/javascript">
 				var swf_width = 740;
-        		var swf_height = 320;
+        		var swf_height = 450;
         		var config = '6|0xffffff|0x0099FF|20|0xffffff|0x0099FF|0x000000';//config 设置分别为: 自动播放时间(秒)|文字颜色|文字背景色|文字背景透明度|按键数字色|当前按键色|普通按键色
         		var files = '<%=files%>';
         		var links = '<%=links%>';
@@ -92,7 +92,30 @@ $(function(){
 			</script>
 		</div>
 		<div class="tongzhi fdR">
-			<div class="tongzhi_title"><div class="neitop">媒体关注</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=12&NEW_FEN=">更多>></a></div>
+		 <div class="tongzhi_title"><div class="neitop" style="padding-left:25px;">通知公告</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=3&NEW_FEN=7">更多>></a></div>
+		 <div class="tongzhi_li">
+				<ul>
+					<%
+					for(int i=0;i<listTongZhi.size();i++){//通知公告
+						String ID = ((HashMap)listTongZhi.get(i)).get("ID").toString();
+						String NEW_TITLE = ((HashMap)listTongZhi.get(i)).get("NEW_TITLE").toString();
+						String NEW_TIME = ((HashMap)listTongZhi.get(i)).get("NEW_TIME").toString();
+						String NEW_TIMEJ = NEW_TIME.substring(NEW_TIME.indexOf("-")+1, NEW_TIME.length());
+						String NEW_NUM = ((HashMap)listTongZhi.get(i)).get("NEW_NUM").toString();
+						String SPE_TAG = ((HashMap)listTongZhi.get(i)).get("SPE_TAG").toString();
+						out.print("<li><a href=\""+path+"/jsp/newDetail.jsp?ID="+ID+"\" target=\"_blank\" title=\""+NEW_TITLE+"\" style='width:200px;display:block;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>");
+						if(SPE_TAG.equals("1")){
+							out.print("<strong><font color='#FF0000'>"+NEW_TITLE+"</font></strong>");
+						}else{
+							out.print("<strong>"+NEW_TITLE+"</strong>");
+						}
+						out.print("</a></li>");
+					}
+					%>
+					</ul>
+				</div>  
+		  		
+			<%-- <div class="tongzhi_title"><div class="neitop">媒体关注</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=12&NEW_FEN=">更多>></a></div>
 			<div class="tongzhi_li">
 				<ul>
 					<%
@@ -113,22 +136,22 @@ $(function(){
 					}
 					%>
 				</ul>
-			</div>
+			</div> --%>
 		</div>
 		<div class="clear"></div>
 		<div class="meiti fdL">
-			<div class="meiti_title"><div class="neitop" style="padding-left:25px;">通知公告</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=3&NEW_FEN=7">更多>></a></div>
+			<div class="meiti_title"><div class="neitop" style="padding-left:25px;">媒体关注</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=12&NEW_FEN=">更多>></a></div>
 			<div class="meiti_li">
 				<ul>
 					<%
-					for(int i=0;i<listTongZhi.size();i++){//学校动态
-						String ID = ((HashMap)listTongZhi.get(i)).get("ID").toString();
-						String NEW_TITLE = ((HashMap)listTongZhi.get(i)).get("NEW_TITLE").toString();
-						String NEW_TIME = ((HashMap)listTongZhi.get(i)).get("NEW_TIME").toString();
-						String NEW_TIMEJ = NEW_TIME.substring(NEW_TIME.indexOf("-")+1, NEW_TIME.length());
-						String NEW_NUM = ((HashMap)listTongZhi.get(i)).get("NEW_NUM").toString();
-						String SPE_TAG = ((HashMap)listTongZhi.get(i)).get("SPE_TAG").toString();
-						out.print("<li><a href=\""+path+"/jsp/newDetail.jsp?ID="+ID+"\" target=\"_blank\" title=\""+NEW_TITLE+"\" style='width:300px;display:block;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>");
+						for(int i=0;i<listMeiTi.size();i++){
+							String ID = ((HashMap)listMeiTi.get(i)).get("ID").toString();
+							String NEW_TITLE = ((HashMap)listMeiTi.get(i)).get("NEW_TITLE").toString();
+							String NEW_TIME = ((HashMap)listMeiTi.get(i)).get("NEW_TIME").toString();
+							String NEW_TIMEJ = NEW_TIME.substring(NEW_TIME.indexOf("-")+1, NEW_TIME.length());
+							String NEW_NUM = ((HashMap)listMeiTi.get(i)).get("NEW_NUM").toString();
+							String SPE_TAG = ((HashMap)listMeiTi.get(i)).get("SPE_TAG").toString();
+							out.print("<li><a href=\""+path+"/jsp/newDetail.jsp?ID="+ID+"\" target=\"_blank\" title=\""+NEW_TITLE+"\" style='width:300px;display:block;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>");
 						if(SPE_TAG.equals("1")){
 							out.print("<strong><font color='#FF0000'>"+NEW_TITLE+"</font></strong>");
 						}else{

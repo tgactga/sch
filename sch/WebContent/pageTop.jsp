@@ -54,6 +54,7 @@ function Login(){
 <body>
 	<div id="Header" style="height:28px;">
 		<div class="topBox" style="width:1007px; margin:0 auto; margin-bottom:2px;">
+		    
 			<div class="topTools" style="color:#FFFFFF; float:right;">
 				<span class="localTime">
 					<script language="javascript" type="text/javascript" src="<%=path%>/js/date.js"></script>
@@ -61,26 +62,7 @@ function Login(){
 				<a href="#" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('www.hbhcgz.html');" title="设为首页">设为首页</a>
 				<a href="javascript:if(document.all){window.external.addFavorite('www.hbhcgz.html','新洲一中');}else if(window.sidebar){window.sidebar.addPanel('新洲一中', 'http://www.xinzhou.cn','');}" title="加入收藏">加入收藏</a>
 			</div>
-			<div id="LoginFrom" class="Login_ajax" onKeyPress="javascript:return DefaultButton(event, 'BtnLogOn')">
-				<div class="fl">
-					用户名：<input id="TxtUserName" class="inputtext" onFocus="if(this.value=='用户名')this.value='';else this.select();" name="TxtUserName" maxLength="20" value="用户名" type="text" />
-		 				密码：<input style="width: 125px;" id="TxtPassword" class="inputtext" onFocus="if(this.value=='123456')this.value='';else this.select();" name="TxtPassword" value="123456" type="password" />
-				</div>
-				<div style="float: left; display: none;" id="checkcode">
-					&nbsp;验证码：<input name="TxtValdisplayDateCode" type="text" value="no" id="TxtValdisplayDateCode" class="tx_input" onfocus="this.select();" /><img id="VcodeLogOn" title="看不清楚，换一个" onclick="RefreshValdisplayDateCodeImage(this);" src="" class="Vcode" />
-				</div>
-				<div style="float: left; display: none;">
-					Cookie：<select id="dropexpiration" name="dropexpiration">
-					    <option value="none">不保存</option>
-						<option value="day">保存一天</option>
-						<option value="month">保存一月</option>
-						<option value="year">保存一年</option>
-		 				</select>
-				</div>
-				&nbsp;<input type="image" src="<%=path%>/images/web/btn_log.png" name="BtnLogOn" value="登录" id="BtnLogOn" onclick="Login();" style="width:59px; height:20px;" />
-				<a href="http://localhost:8081/userreg.php" linkOpenType="_top" style="background:url(<%=path%>/images/web/btn_reg.png); width:59px; height:20px; display:inline-block; margin-left:5px; vertical-align:middle;"></a>
-				<a class="password" href="">&nbsp;&nbsp;忘记密码</a>
-			</div>
+		 <div class="topTools"><span> 博大    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp方正 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 尚美 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 创新     </span> </div>
 		</div>
 	</div>
 	<div class="header" style="width:100%;">
