@@ -36,6 +36,10 @@ body{
 function outLog(){
 	window.parent.location.replace("<%=path%>/jsp/admin/login.jsp");
 }
+function updatePsw(){
+	window.parent.location.replace("<%=path%>/jsp/admin/updatePassWord.jsp");
+}
+ 
 </script>
 </head>
 <body>
@@ -54,7 +58,7 @@ function outLog(){
 							<img src="<%=path%>/images/blueui/index1_06.gif" width="16" height="16" />
 						</td>
 						<td align="center" class="font2">
-							<a href="#" class="font2"><strong>帮助</strong></a>
+							<a href="#" class="font2" onclick="updatePsw();"><strong>修改密码</strong></a>
 						</td>
 						<td align="center">
 							<img src="<%=path%>/images/blueui/index1_08.gif" width="16" height="16" />
