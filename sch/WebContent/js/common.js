@@ -70,7 +70,7 @@ function deleteItem(ID,table){
 	if(window.confirm('您确定要删除这条信息吗？')){
 		$.ajax({
 			type:"post",
-			url:getRootPath()+"/CommonAction.do",
+			url:"/sch/CommonAction.do",
 			dataType:"json",
 			data:'operType=deleteCommon&ID='+ID+'&TABLE='+encodeURIComponent(table),
 			success:function(data){
