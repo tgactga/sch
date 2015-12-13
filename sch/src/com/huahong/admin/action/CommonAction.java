@@ -1,7 +1,9 @@
 package com.huahong.admin.action;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import org.apache.struts.action.ActionMapping;
 import com.huahong.admin.dao.CommonDAO;
 import com.huahong.erp.util.GetMaxId;
 import com.huahong.erp.util.GetParam;
+import com.huahong.erp.util.UploadMoreForm;
 import com.huahong.erp.util.exchange;
 import com.huahong.util.CommonFun;
 
@@ -117,8 +120,13 @@ public class CommonAction extends Action{
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
+			
+			Set<String> set = new HashSet<>();
+			String fileNames = request.getSession().getAttribute("uploadFileNames")+"";
+			
 			CommonDAO dao = new CommonDAO();
 			mapPara.put("ISSUER_PER", request.getSession().getAttribute("USER_ID"));
+			mapPara.put("FILES", fileNames);
 			boolean tag = dao.insertNew(mapPara);
 			if(tag == true){
 				response.getWriter().write("{\"SUCCESS\":\"1\"}");
@@ -130,6 +138,7 @@ public class CommonAction extends Action{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		request.getSession().setAttribute("uploadFileNames", "");
 	    return null;
 	}
 	private ActionForward updateNew(ActionMapping mapping, ActionForm form,

@@ -5,6 +5,10 @@
 	<data-sources />
 	<form-beans>
 		<form-bean name="loginForm" type="com.huahong.erp.util.LoginForm" />
+		
+		<!-- 配置 多个上传 -->  
+		<form-bean name="uploadMoreForm" type="com.huahong.erp.util.UploadMoreForm" /> 
+
 	</form-beans>
 	<global-exceptions />
 	<global-forwards type="org.apache.struts.action.ActionForward">
@@ -51,6 +55,11 @@
 		</action>
 		<action path="/XiaoYouAction" type="com.huahong.admin.action.XiaoYouAction">
 		</action>
+		
+		<!-- 配置 多个上传 -->  
+		<action path="/multiUpload" type="com.huahong.admin.action.UploadMoreAction" name="uploadMoreForm" scope="request">  
+		</action>
+		
 	</action-mappings>
 	<message-resources parameter="com.huahong.erp.ApplicationResources" />
 </struts-config>

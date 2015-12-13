@@ -56,26 +56,60 @@ var	sHeight = window.parent.document.body.clientHeight;;
 var Sys = getBrowser()
 var taglen = 140;
 
+var saveFlag = false;
 $(function(){
 	CKEDITOR.replace("NEW_CONTENT");
 	$("#conTd").css({
 		"height":(sHeight-taglen)+"px"
 	})
 	$("#save").button().click(function(){
+		saveFlag = true;
 		save('0');
 	});
 	$("#audit").button().click(function(){
+		saveFlag = true;
 		save('1');
 	});
 	$("#back").button().click(function(){
 		location.replace("<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>");
 	});
+	
+	$("#uploadFile").button().click(function(){
+		uploadFile();
+	});
+	
+	$("#fileUploadDia").dialog({
+		autoOpen:false,
+		height:340,
+		width:400,
+		modal:true,
+		resizable:false,
+		/* buttons:{
+			"确定":function(){
+				$(this).contents().find("#uploadForm").submit();
+			},
+			"取消": function(){
+				$(this).dialog("close");
+			}
+		}, */
+		close:function(){
+			$(this).dialog("close");
+		}
+	});
+	
+	
+	
 });
+
+var NEW_FEN = $("#NEW_FEN").val();
+var NEW_TITLE = $("#NEW_TITLE").val();
+var NEW_TIME = $("#NEW_TIME").val();
+var NEW_TYPE=<%=NEW_TYPE%>;
 function save(AUDIT_TAG){
-	var NEW_FEN = $("#NEW_FEN").val();
-	var NEW_TITLE = $("#NEW_TITLE").val();
-	var NEW_TIME = $("#NEW_TIME").val();
-	var NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
+	NEW_FEN = $("#NEW_FEN").val();
+	NEW_TITLE = $("#NEW_TITLE").val();
+	NEW_TIME = $("#NEW_TIME").val();
+	NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
@@ -90,6 +124,12 @@ function save(AUDIT_TAG){
 		}
 	});
 }
+
+function uploadFile(){
+	$("#myIframe").attr("src",'upload.jsp?saveFlag='+saveFlag);
+	$("#fileUploadDia").dialog("open");
+}
+
 </script>
 </head>
 <body>
@@ -168,8 +208,13 @@ function save(AUDIT_TAG){
 																	<textarea id="NEW_CONTENT"></textarea>
 	                                                            </td>
 															</tr>
+															
+	                                                        
+	                                                        
 														</table>
 														<div style="padding-top:5px;padding-left:30%;">
+															<input id="uploadFile" style="width:100px;" type="submit" value="上传附件"/>&nbsp;&nbsp;
+														
 															<input id="save" style="width:100px;" type="submit" value="保存草稿"/>&nbsp;&nbsp;
 															<input id="audit" style="width:100px;" type="submit" value="发布审核"/>&nbsp;&nbsp;
 															<input id="back" style="width:55px;" type="submit" value="返回"/>
@@ -194,5 +239,9 @@ function save(AUDIT_TAG){
 			</td>
 		</tr>
 	</table>
+	
+	<div id="fileUploadDia" title="上传附件" style="font-size:14px;">
+		<iframe id="myIframe" src="upload.jsp" width="97%" height="97%"> 
+	</div>
 </body>
 </html>

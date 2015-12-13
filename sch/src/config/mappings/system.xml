@@ -62,8 +62,8 @@
 	</select>
 	<!-- 新闻添加 -->
 	<insert id="CommonDAO.insertNew"  parameterClass="java.util.HashMap">
-		INSERT INTO new_content (NEW_TITLE,NEW_TIME,ISSUER_PER,NEW_CONTENT,STATUS,NEW_TYPE,NEW_FEN,NEW_NUM,AUDIT_TAG,EDIT_TIME) VALUES 
-		(#NEW_TITLE#,#NEW_TIME#,#ISSUER_PER#,#NEW_CONTENT#,'2',#NEW_TYPE#,#NEW_FEN#,0,#AUDIT_TAG#,NOW())
+		INSERT INTO new_content (NEW_TITLE,NEW_TIME,ISSUER_PER,NEW_CONTENT,STATUS,NEW_TYPE,NEW_FEN,NEW_NUM,AUDIT_TAG,EDIT_TIME,FILES) VALUES 
+		(#NEW_TITLE#,#NEW_TIME#,#ISSUER_PER#,#NEW_CONTENT#,'2',#NEW_TYPE#,#NEW_FEN#,0,#AUDIT_TAG#,NOW(),#FILES#)
 	</insert>
 	<!-- 新闻信息详细 -->
 	<resultMap id="CommonDAO.getNewDetailMap" class="java.util.HashMap">
