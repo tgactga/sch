@@ -1,4 +1,4 @@
-package com.huahong.admin.action;
+﻿package com.huahong.admin.action;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +25,32 @@ public class AdminLoginAction extends Action{
 			if(operType.equals("adminLogin")){
 				return adminLogin(mapping, form, request, response);
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	    return null;
+	}
+	
+	private ActionForward updatePsw(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
+			
+			AdminLoginDAO dao = new AdminLoginDAO();
+			MD5 md = new MD5();
+			String mi = md.getMD5ofStr(mapPara.get("USER_PASSWORD").toString());
+			mapPara.put("USER_PASSWORD", mi);
+			Boolean updateflag = dao.updateAdminUser(mapPara);
+			
+				if(updateflag){//=修改成功
+					response.getWriter().write("{\"SUCCESS\":\"1\"}");
+				    response.getWriter().close();
+				}else{// 有误
+					response.getWriter().write("{\"SUCCESS\":\"0\"}");
+				    response.getWriter().close();
+				}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

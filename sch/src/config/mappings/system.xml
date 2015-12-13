@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE sqlMap 
   PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
@@ -29,6 +29,10 @@
 		SELECT U.ID,U.USER_NAME,R.ROLE_NAME FROM user U 
 		LEFT JOIN role R ON R.ID=U.ROLE_ID WHERE U.USER_CODE=#USER_CODE# AND U.USER_PASSWORD=#USER_PASSWORD_MI#
 	</select>
+	<!-- 修改系统用户登陆密码 -->
+	<update id="AdminLoginDAO.updateAdminUser" parameterClass="java.util.HashMap">
+		UPDATE user  SET USER_PASSWORD=#USER_PASSWORD#  WHERE  USER_CODE=#USER_CODE#
+	</update>
 	<!-- 左侧树 -->
 	<resultMap id="LeftTreeDAO.searchLeftUserListMap" class="java.util.HashMap">
 		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
