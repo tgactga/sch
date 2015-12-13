@@ -25,7 +25,7 @@ function refresh(obj){
 function submit(){
 	var USER_CODE = $("#USER_CODE").val();
 	var USER_PASSWORD = $("#USER_PASSWORD").val();
-	var CHECKCODE = $("#CHECKCODE").val();
+	var USER_PASSWORD_2 = $("#USER_PASSWORD_2").val();
 	if(USER_CODE == ""){
 		msgError("请填写用户名!");
 		return;
@@ -34,24 +34,25 @@ function submit(){
 		msgError("请填写密码!");
 		return;
 	}
-	if(CHECKCODE == ""){
-		msgError("请填写验证码!");
+	if(USER_PASSWORD_2 == ""){
+		msgError("再次输入密码!");
+		return;
+	}
+	if(USER_PASSWORD_2 != USER_PASSWORD){
+		msgError("两次输入的密码不一致!");
 		return;
 	}
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/AdminLoginAction.do",
 		dataType:"json",
-		data:'operType=adminLogin&USER_CODE='+encodeURIComponent(USER_CODE)+'&USER_PASSWORD='+encodeURIComponent(USER_PASSWORD)+'&CHECKCODE='+encodeURIComponent(CHECKCODE),
+		data:'operType=adminLogin&USER_CODE='+encodeURIComponent(USER_CODE)+'&USER_PASSWORD='+encodeURIComponent(USER_PASSWORD),
 		success:function(data){
 			if(data.SUCCESS == 1){
+				msgError('密码修改成功，正跳转到登陆页面!');
 				location.replace("<%=path%>/jsp/admin/index.jsp");
-			}else if(data.SUCCESS == 2){
-				msgError('验证码输入有误!');
-				$("#CHECKCODE").val("");
-				document.getElementById("userImg").src = "<%=path%>/imageServlet?"+Math.random();
 			}else{
-				msgError('请核对用户名和密码');
+				msgError('修改密码失败！');
 				$("#USER_PASSWORD").val("");
 				$("#CHECKCODE").val("");
 				document.getElementById("userImg").src = "<%=path%>/imageServlet?"+Math.random();
@@ -62,7 +63,7 @@ function submit(){
 function reset(){
 	$("#USER_CODE").val("");
 	$("#USER_PASSWORD").val("");
-	$("#CHECKCODE").val("");
+	$("#USER_PASSWORD_2").val("");
 }
 document.onkeydown = function(event_e){
 	if(window.event) {
@@ -88,8 +89,8 @@ document.onkeydown = function(event_e){
 					<td colspan="2"><input type="password" id="USER_PASSWORD" class="input2" /></td>
 				</tr>
 				<tr>
-					<td>确认输入：</td>
-					<td colspan="2"><input type="password" id="USER_PASSWORD2" class="input2" /></td>
+					<td>再次输入：</td>
+					<td colspan="2"><input type="password" id="USER_PASSWORD_2" class="input2" /></td>
 				</tr>
 			</table>
             <p>
