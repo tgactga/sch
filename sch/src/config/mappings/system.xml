@@ -73,7 +73,9 @@
 		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="NEW_CONTENT" column="NEW_CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FILES" column="NEW_FILES" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
+	
 	<select id="CommonDAO.getNewDetail" resultMap="CommonDAO.getNewDetailMap" parameterClass="java.lang.String">
 		SELECT N.FILES AS NEW_FILES ,N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
 		LEFT JOIN user U ON U.ID=N.ISSUER_PER WHERE N.ID=#ID#
