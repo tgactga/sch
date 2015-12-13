@@ -57,6 +57,8 @@ var Sys = getBrowser()
 var taglen = 140;
 
 var saveFlag = false;
+
+
 $(function(){
 	CKEDITOR.replace("NEW_CONTENT");
 	$("#conTd").css({
@@ -110,11 +112,17 @@ function save(AUDIT_TAG){
 	NEW_TITLE = $("#NEW_TITLE").val();
 	NEW_TIME = $("#NEW_TIME").val();
 	NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
+	var fileNams = $("#FILES").html();
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
 		dataType:"json",
-		data:'operType=addNew&NEW_FEN='+encodeURIComponent(NEW_FEN)+'&NEW_TITLE='+encodeURIComponent(NEW_TITLE)+'&NEW_TIME='+NEW_TIME+'&NEW_CONTENT='+encodeURIComponent(NEW_CONTENT)+'&NEW_TYPE=<%=NEW_TYPE%>&AUDIT_TAG='+AUDIT_TAG,
+		data:'operType=addNew&NEW_FEN='+encodeURIComponent(NEW_FEN)
+			+'&NEW_TITLE='+encodeURIComponent(NEW_TITLE)+'&NEW_TIME='
+			+NEW_TIME+'&NEW_CONTENT='+encodeURIComponent(NEW_CONTENT)
+			+'&NEW_TYPE=<%=NEW_TYPE%>&AUDIT_TAG='+AUDIT_TAG
+			+'&FILES='+fileNams
+			,
 		success:function(data){
 			if(data.SUCCESS == 1){
 				msgSuccessUrl('添加成功', '<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>');
@@ -209,7 +217,14 @@ function uploadFile(){
 	                                                            </td>
 															</tr>
 															
-	                                                        
+	                                                        <tr>
+																<td class="tdfir" align="center" style="width:10%;">附件列表</td>
+																<td class="tdSen" align="left" style="width:90%;">
+																	<div class="c_content_overflow" id="FILES">
+																		
+																	</div>
+	                                                            </td>
+															</tr>
 	                                                        
 														</table>
 														<div style="padding-top:5px;padding-left:30%;">

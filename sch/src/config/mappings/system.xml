@@ -55,7 +55,7 @@
 		<result property="NEW_FENNAME" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="CommonDAO.getNewList" resultMap="CommonDAO.getNewListMap" parameterClass="java.util.HashMap">
-		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,U.USER_NAME AS ISSUER_PER,N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME FROM new_content N 
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.FILES,U.USER_NAME AS ISSUER_PER,N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME FROM new_content N 
 		LEFT JOIN tree_base B ON N.NEW_FEN = B.ID 
 		LEFT JOIN user U ON N.ISSUER_PER = U.ID
 		WHERE N.NEW_TYPE=#NEW_TYPE# $condition$ ORDER BY N.EDIT_TIME DESC LIMIT $page$,$rp$ 
@@ -75,7 +75,7 @@
 		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="CommonDAO.getNewDetail" resultMap="CommonDAO.getNewDetailMap" parameterClass="java.lang.String">
-		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
+		SELECT N.FILES AS NEW_FILES ,N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
 		LEFT JOIN user U ON U.ID=N.ISSUER_PER WHERE N.ID=#ID#
 	</select>
 	<!-- 修改新闻 -->

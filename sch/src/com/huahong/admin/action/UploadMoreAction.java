@@ -50,7 +50,6 @@ public class UploadMoreAction extends Action {
                 fos.flush();//释放  
                 fos.close(); //关闭  
             }
-            request.getSession().setAttribute("uploadFileNames", umForm.getFileNames());
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("上传成功");
     	    response.getWriter().close();

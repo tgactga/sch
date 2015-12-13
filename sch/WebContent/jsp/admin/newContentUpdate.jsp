@@ -19,9 +19,13 @@ CommonFun fun = new CommonFun();
 String title = fun.retTitle(NEW_TYPE);
 
 String ID = request.getParameter("ID").toString();
+System.out.println(ID);
 CommonDAO dao = new CommonDAO();
 List newList = dao.getNewDetail(ID);
 String NEW_CONTENT = ((HashMap)newList.get(0)).get("NEW_CONTENT").toString();
+
+String files = ((HashMap)newList.get(0)).get("NEW_FILES")==null?"无":((HashMap)newList.get(0)).get("NEW_FILES").toString();
+System.out.println(files);
 NEW_CONTENT = StringUtils.replaceBlank(NEW_CONTENT);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -59,6 +63,7 @@ var	sHeight = window.parent.document.body.clientHeight;;
 var Sys = getBrowser()
 var taglen = 140;
 
+var saveFlag = false;
 $(function(){
 	CKEDITOR.replace("NEW_CONTENT");
 	CKEDITOR.instances.NEW_CONTENT.setData('<%=NEW_CONTENT%>');
@@ -75,16 +80,37 @@ $(function(){
 	$("#back").button().click(function(){
 		location.replace("<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>");
 	});
+	
+	$("#uploadFile").button().click(function(){
+		uploadFile();
+	});
+	
+	$("#fileUploadDia").dialog({
+		autoOpen:false,
+		height:340,
+		width:400,
+		modal:true,
+		resizable:false,
+		close:function(){
+			$(this).dialog("close");
+		}
+	});
 });
 function save(AUDIT_TAG){
 	var NEW_TITLE = $("#NEW_TITLE").val();
 	var NEW_TIME = $("#NEW_TIME").val();
 	var NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
+	var fileNams = $("#FILES").html();
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
 		dataType:"json",
-		data:'operType=updateNew&ID=<%=ID%>&NEW_TITLE='+encodeURIComponent(NEW_TITLE)+'&NEW_TIME='+NEW_TIME+'&NEW_CONTENT='+encodeURIComponent(NEW_CONTENT)+'&AUDIT_TAG='+AUDIT_TAG,
+		data:'operType=updateNew&ID=<%=ID%>&NEW_TITLE='+encodeURIComponent(NEW_TITLE)
+			+'&NEW_TIME='+NEW_TIME+'&NEW_CONTENT='
+			+encodeURIComponent(NEW_CONTENT)
+			+'&AUDIT_TAG='+AUDIT_TAG
+			+'&FILES='+fileNams
+			,
 		success:function(data){
 			if(data.SUCCESS == 1){
 				msgSuccessUrl('修改成功', '<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>');
@@ -93,6 +119,11 @@ function save(AUDIT_TAG){
 			}
 		}
 	});
+}
+
+function uploadFile(){
+	$("#myIframe").attr("src",'upload.jsp?saveFlag='+saveFlag);
+	$("#fileUploadDia").dialog("open");
 }
 </script>
 </head>
@@ -160,8 +191,20 @@ function save(AUDIT_TAG){
 																	<textarea id="NEW_CONTENT"></textarea>
 	                                                            </td>
 															</tr>
+															
+															<tr>
+																<td class="tdfir" align="center" style="width:10%;">附件列表</td>
+																<td class="tdSen" align="left" style="width:90%;">
+																	<div class="c_content_overflow" id="FILES">
+																		<%=files%>
+																	</div>
+	                                                            </td>
+															</tr>
+															
 														</table>
 														<div style="padding-top:5px;padding-left:30%;">
+															<input id="uploadFile" style="width:100px;" type="submit" value="上传附件"/>&nbsp;&nbsp;
+														
 															<input id="save" style="width:100px;" type="submit" value="保存草稿"/>&nbsp;&nbsp;
 															<input id="audit" style="width:100px;" type="submit" value="发布审核"/>&nbsp;&nbsp;
 															<input id="back" style="width:55px;" type="submit" value="返回"/>
@@ -186,5 +229,10 @@ function save(AUDIT_TAG){
 			</td>
 		</tr>
 	</table>
+	
+	<div id="fileUploadDia" title="上传附件" style="font-size:14px;">
+		<iframe id="myIframe" src="upload.jsp" width="97%" height="97%"> 
+	</div>
+	
 </body>
 </html>

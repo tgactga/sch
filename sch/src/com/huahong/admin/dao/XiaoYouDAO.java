@@ -53,9 +53,11 @@ public class XiaoYouDAO extends BaseDAO{
 		}
 	}
 	//查询新闻详细
+	@SuppressWarnings("rawtypes")
 	public List getNewDetail(String ID){
 		try{
-			return dao.queryForList("CommonDAO.getNewDetail", ID);
+			List list = dao.queryForList("CommonDAO.getNewDetail", ID);
+			return list;
 		}catch(Exception e){
 			Log.error("CommonDAO.getNewDetail方法出现异常 " + e.getMessage());
 			return null;

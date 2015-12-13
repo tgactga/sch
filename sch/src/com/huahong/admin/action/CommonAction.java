@@ -121,12 +121,8 @@ public class CommonAction extends Action{
 			response.setCharacterEncoding("utf-8");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			
-			Set<String> set = new HashSet<>();
-			String fileNames = request.getSession().getAttribute("uploadFileNames")+"";
-			
 			CommonDAO dao = new CommonDAO();
 			mapPara.put("ISSUER_PER", request.getSession().getAttribute("USER_ID"));
-			mapPara.put("FILES", fileNames);
 			boolean tag = dao.insertNew(mapPara);
 			if(tag == true){
 				response.getWriter().write("{\"SUCCESS\":\"1\"}");
