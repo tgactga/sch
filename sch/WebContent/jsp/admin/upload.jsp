@@ -51,7 +51,7 @@
                   fileHtml += '<img  width =30 height = 30 src ="<%=basePath%>/images/file.png" title="' + fullName + '"/>';  
                   fileHtml += '<a href="javascript:;" onclick="removeFile(' + id + ');">删除</a>   ';  
                   fileHtml += fullName.substr(fullName.lastIndexOf('\\')+1) +'  </div>';  
-                  alert(fullName.substr(fullName.lastIndexOf('\\')+1));
+                  //alert(fullName.substr(fullName.lastIndexOf('\\')+1));
                   uploadFileArr.push(fullName.substr(fullName.lastIndexOf('\\')+1));
                   
                   var fileElement = document.getElementById("files_preview");  
@@ -89,7 +89,7 @@
                 document.getElementById("status").style.visibility="visible";  
                 
                 var uploadFileNames = uploadFileArr.join("<br/>");
-          	  	alert(uploadFileNames);
+          	  	//alert(uploadFileNames);
           	  
           	  	$('#FILES', window.parent.document).html(uploadFileNames);
           	  

@@ -50,7 +50,6 @@ public class CommonDAO extends BaseDAO{
 	public List getNewDetail(String ID){
 		try{
 			List list = dao.queryForList("CommonDAO.getNewDetail", ID);
-			System.out.println(list.get(0));
 			return list;
 		}catch(Exception e){
 			Log.error("CommonDAO.getNewDetail方法出现异常 " + e.getMessage());

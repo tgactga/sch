@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE sqlMap 
   PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
@@ -77,17 +77,17 @@
 		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="NEW_CONTENT" column="NEW_CONTENT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
-		<result property="NEW_FILES" column="NEW_FILES" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="FILES" column="FILES" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	
 	<select id="CommonDAO.getNewDetail" resultMap="CommonDAO.getNewDetailMap" parameterClass="java.lang.String">
-		SELECT N.FILES AS NEW_FILES ,N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
+		SELECT N.FILES ,N.ID,N.NEW_TITLE,N.NEW_TIME,N.ISSUER_PER,N.NEW_CONTENT,U.USER_NAME FROM new_content N 
 		LEFT JOIN user U ON U.ID=N.ISSUER_PER WHERE N.ID=#ID#
 	</select>
 	<!-- 修改新闻 -->
 	<update id="CommonDAO.updateNew"  parameterClass="java.util.HashMap">
 		UPDATE new_content SET NEW_TITLE=#NEW_TITLE#,NEW_TIME=#NEW_TIME#,ISSUER_PER=#ISSUER_PER#,
-		NEW_CONTENT=#NEW_CONTENT#,AUDIT_TAG=#AUDIT_TAG#,EDIT_TIME=NOW() WHERE ID=#ID#
+		NEW_CONTENT=#NEW_CONTENT#,AUDIT_TAG=#AUDIT_TAG#,FILES=#FILES#,EDIT_TIME=NOW() WHERE ID=#ID#
 	</update>
 	<update id="CommonDAO.updateAuditNew"  parameterClass="java.util.HashMap">
 		UPDATE new_content SET NEW_TITLE=#NEW_TITLE#,NEW_TIME=#NEW_TIME#,

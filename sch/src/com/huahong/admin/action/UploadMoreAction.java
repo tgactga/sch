@@ -22,7 +22,7 @@ public class UploadMoreAction extends Action {
 	static String fileUploadPath = null;
     static{
     	Properties prop = new Properties();
-    	InputStream in = UploadMoreAction.class.getClassLoader().getResourceAsStream("/config/config.properties");
+    	InputStream in = UploadMoreAction.class.getClassLoader().getResourceAsStream("/config/fileupload.properties");
     	try {
 			prop.load(in);
 			fileUploadPath = prop.getProperty("fileUploadPath");

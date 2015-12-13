@@ -24,7 +24,7 @@ CommonDAO dao = new CommonDAO();
 List newList = dao.getNewDetail(ID);
 String NEW_CONTENT = ((HashMap)newList.get(0)).get("NEW_CONTENT").toString();
 
-String files = ((HashMap)newList.get(0)).get("NEW_FILES")==null?"无":((HashMap)newList.get(0)).get("NEW_FILES").toString();
+String files = ((HashMap)newList.get(0)).get("FILES")==null?"无":((HashMap)newList.get(0)).get("FILES").toString();
 System.out.println(files);
 NEW_CONTENT = StringUtils.replaceBlank(NEW_CONTENT);
 %>
@@ -100,7 +100,7 @@ function save(AUDIT_TAG){
 	var NEW_TITLE = $("#NEW_TITLE").val();
 	var NEW_TIME = $("#NEW_TIME").val();
 	var NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
-	var fileNams = $("#FILES").html();
+	var fileNames = $("#FILES").html();
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
@@ -109,7 +109,7 @@ function save(AUDIT_TAG){
 			+'&NEW_TIME='+NEW_TIME+'&NEW_CONTENT='
 			+encodeURIComponent(NEW_CONTENT)
 			+'&AUDIT_TAG='+AUDIT_TAG
-			+'&FILES='+fileNams
+			+'&FILES='+fileNames
 			,
 		success:function(data){
 			if(data.SUCCESS == 1){
