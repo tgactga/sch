@@ -46,15 +46,15 @@ function submit(){
 		type:"post",
 		url:"<%=path%>/AdminLoginAction.do",
 		dataType:"json",
-		data:'operType=adminLogin&USER_CODE='+encodeURIComponent(USER_CODE)+'&USER_PASSWORD='+encodeURIComponent(USER_PASSWORD),
+		data:'operType=updatePsw&USER_CODE='+encodeURIComponent(USER_CODE)+'&USER_PASSWORD='+encodeURIComponent(USER_PASSWORD),
 		success:function(data){
 			if(data.SUCCESS == 1){
 				msgError('密码修改成功，正跳转到登陆页面!');
-				location.replace("<%=path%>/jsp/admin/index.jsp");
+				location.replace("<%=path%>/jsp/admin");
 			}else{
 				msgError('修改密码失败！');
 				$("#USER_PASSWORD").val("");
-				$("#CHECKCODE").val("");
+				$("#USER_PASSWORD_2").val("");
 				document.getElementById("userImg").src = "<%=path%>/imageServlet?"+Math.random();
 			}
 		}
@@ -93,12 +93,16 @@ document.onkeydown = function(event_e){
 					<td colspan="2"><input type="password" id="USER_PASSWORD_2" class="input2" /></td>
 				</tr>
 			</table>
+			 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  </p>
             <p>
-            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:submit()" target="_self">
-            		<img src="<%=path%>/images/blueui/loginSub.jpg">
+            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:submit()" target="_self">
+            		<%-- <img src="<%=path%>/images/blueui/loginSub.jpg"> --%>
+            		<input id="search" type="submit" value="确定修改" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
             	</a>
-            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:reset()" target="_self">
-            		<img src="<%=path%>/images/blueui/loginReset.jpg">
+            	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:reset()" target="_self">
+            		<%-- <img src="<%=path%>/images/blueui/loginReset.jpg"> --%>
+            		<input id="search" type="submit" value="清空重置" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
             	</a>
             </p>
         </div>

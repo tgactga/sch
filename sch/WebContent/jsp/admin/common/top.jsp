@@ -76,8 +76,8 @@ function updatePsw(){
 					<tr>
 						<td align="right" class="font2">
 							<a href="#">
-								<img src="<%=path%>/images/blueui/index1_13.gif" width="84" height="24" border="0" align="absmiddle" />
-							</a>&nbsp;|&nbsp;登陆用户：<%=USER_NAME %>&nbsp;|&nbsp;身份：<%=ROLE_NAME %>&nbsp;|&nbsp;界面风格：
+								<%-- <img src="<%=path%>/images/blueui/index1_13.gif" width="84" height="24" border="0" align="absmiddle" /> --%>
+							</a>&nbsp;&nbsp;登陆用户：<%=USER_NAME %>&nbsp;|&nbsp;身份：<%=ROLE_NAME %>&nbsp;|&nbsp;界面风格：
 							<a href="#"><img src="<%=path%>/images/blueui/index1_16.gif" width="48" height="24" border="0" align="absmiddle" /></a>&nbsp;
 						</td>
 					</tr>

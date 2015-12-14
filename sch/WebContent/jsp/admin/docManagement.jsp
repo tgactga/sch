@@ -22,7 +22,7 @@ List chuList = daoC.searchAllChu();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>用户管理</title>
+    <title>文件管理</title>
     <link href="<%=path%>/css/blueui/style.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/flexigridStyle/flexigrid.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/jqueryui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
@@ -235,7 +235,7 @@ function editItem(obj){
                                                                 <img src="<%=path%>/images/blueui/index1_35.gif" width="5" height="39" />
                                                             </td>
                                                             <td align="center" background="<%=path%>/images/blueui/index1_36.gif">
-                                                                <a href="#" class="font3"><strong>用户管理</strong></a>
+                                                                <a href="#" class="font3"><strong>文件管理</strong></a>
                                                             </td>
                                                             <td width="5">
                                                                 <img src="<%=path%>/images/blueui/index1_38.gif" width="5" height="39" />
@@ -301,14 +301,14 @@ function editItem(obj){
 	<div id="dialog-add" title="添加文件" style="font-size:14px;">
 		<table style="font-size:14px;margin-top:10px;margin-left:10px;">
 			<tr>
-				<td style="text-align:right;height:30px;width:100px;">用户名：</td>
+				<td style="text-align:right;height:30px;width:100px;">文件名：</td>
 				<td style="height:30px;width:300px;"><input id="USER_CODE" type="text" /></td>
 			</tr>
 			<tr>
-				<td style="text-align:right;height:30px;">密码：</td>
+				<td style="text-align:right;height:30px;">地址：</td>
 				<td style="height:30px;"><input id="USER_PASSWORD" type="password" /></td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td style="text-align:right;height:30px;">确认密码：</td>
 				<td style="height:30px;"><input id="USER_CONPASSWORD" type="password" /></td>
 			</tr>
@@ -337,7 +337,7 @@ function editItem(obj){
 					}
 					%>
 				</select></td>
-			</tr>
+			</tr> --%>
 		</table>
 	</div>
 	<div id="dialog-update" title="修改用户" style="font-size:14px;">

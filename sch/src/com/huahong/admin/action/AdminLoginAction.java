@@ -25,6 +25,9 @@ public class AdminLoginAction extends Action{
 			if(operType.equals("adminLogin")){
 				return adminLogin(mapping, form, request, response);
 			}
+			if(operType.equals("updatePsw")){
+				return updatePsw(mapping, form, request, response);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
