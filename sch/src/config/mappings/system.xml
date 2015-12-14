@@ -47,6 +47,23 @@
 	</select>
 	
 	<!-- 文章管理 start -->
+	
+	<!-- 新闻统计分析 -->
+	<resultMap id="CommonDAO.analysNewsMap" class="java.util.HashMap">
+		<result property="ISSUER_PER" column="ISSUER_PER" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_ID" column="CHU_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="COUNT" column="COUNT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="CommonDAO.analysNews" resultMap="CommonDAO.analysNewsMap" parameterClass="java.util.HashMap">
+		select  issuer_per,chu_id ,chu_name,count  from (select issuer_per,count,chu_id from 
+		(select t.issuer_per,count(*) count  from new_content t 
+		where 1=1 and t.new_time between #startTime# and #endTime#
+		group by t.issuer_per) tt  left join user u on tt.issuer_per=u.id) mm left join chu c on mm.chu_id=c.id
+	</select>
+	
+	
+	
 	<!-- 新闻查询 -->
 	<resultMap id="CommonDAO.getNewListMap" class="java.util.HashMap">
 		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>

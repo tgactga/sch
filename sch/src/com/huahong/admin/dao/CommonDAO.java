@@ -103,4 +103,12 @@ public class CommonDAO extends BaseDAO{
 			return null;
 		}
 	}
+	public List analysNews(HashMap mapPara) {
+		try {
+			return dao.queryForList("CommonDAO.analysNews", mapPara);
+		} catch (Exception e) {
+			Log.error("CommonDAO.getFenList方法出现异常 " + e.getMessage());
+			return null;
+		}
+	}
 }
