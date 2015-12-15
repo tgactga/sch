@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.huahong.admin.dao.UserManagementDAO"%>
-<%@page import="com.huahong.admin.dao.ChuManagementDAO"%>
+<%@page import="com.huahong.util.CommonFun"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,16 +12,15 @@ try{
 	return;
 }
 
-UserManagementDAO dao = new UserManagementDAO();
-List roleList = dao.getAllRole();
-ChuManagementDAO daoC = new ChuManagementDAO();
-List chuList = daoC.searchAllChu();
+/* String NEW_TYPE = request.getParameter("NEW_TYPE").toString();
+CommonFun fun = new CommonFun();
+String title = fun.retTitle(NEW_TYPE); */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>文件管理</title>
+    <title>新闻信息</title>
     <link href="<%=path%>/css/blueui/style.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/flexigridStyle/flexigrid.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/jqueryui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
@@ -47,23 +45,25 @@ body {
 }
 </style>
 <script>
-var	sHeight = window.parent.document.body.clientHeight;
+var Xml=false;
+if(window.XMLHttpRequest){
+	Xml=new XMLHttpRequest();
+}else if(window.ActiveXObject){
+	Xml=new ActiveXObject("Msxml2.XMLHTTP");
+}
+var	sHeight = window.parent.document.body.clientHeight;;
 var taglen = 272;
 
 $(function(){
 	$("#flexTable").flexigrid({
-		url: '<%=path%>/UserManagementAction.do?operType=searchAllUser&USER_CODE=',
+		url: '<%=path%>/DocManagementAction.do?operType=queryDoc',
 		dataType: 'json',
 		colModel : [
 			{display: '序号', name : 'ROWNUM', width : 30, align: 'center'},
-			{display: '文件名', name : 'USER_CODE', width : 100, align: 'center'},
-			{display: '地址', name : 'USER_NAME', width : 100, align: 'center'},
-			/* {display: '处室', name : 'CHU', width : 100, align: 'center'},
-			{display: '处室内码', name : 'CHU_ID', width : 100, align: 'center', hide: true},
-			{display: '角色', name : 'ROLE_ID', width : 100, align: 'center'},
-			{display: '角色内码', name : 'ROLE_ID', width : 100, align: 'center', hide: true},
-			{display: '注册日期', name : 'REGIST_TIME', width : 120, align: 'center'}, */
-			{display: '上传时间', name : 'LAST_LOGIN_TIME', width : 120, align: 'center'},
+			{display: '文件名', name : 'FILES', width : 100, align: 'center'},
+			{display: '地址', name : 'FILES', width : 300, align: 'center'},
+			{display: '上传时间', name : 'EDIT_TIME', width : 100, align: 'center'},
+			 
 			{display: '操作', name : 'DEAL', width : 100, align: 'center'}
 			],
 		errormsg: '发生异常',
@@ -90,126 +90,20 @@ $(function(){
 	pagestr = pagestr + "页";
 	$(".pcontrol").html(pagestr);
 	
-	$("#dialog-add").dialog({
-		autoOpen:false,
-		height:340,
-		width:400,
-		modal:true,
-		resizable:false,
-		buttons:{
-			"确定":function(){
-				var USER_CODE = $("#USER_CODE").val();
-				var USER_PASSWORD = $("#USER_PASSWORD").val();
-				var USER_CONPASSWORD = $("#USER_CONPASSWORD").val();
-				var USER_NAME = $("#USER_NAME").val();
-				var CHU_ID = $("#CHU_ID").val();
-				var ROLE_ID = $("#ROLE_ID").val();
-				if(USER_CODE == ""){
-					msgError("用户名不能为空！");
-					return null;
-				}
-				if(USER_PASSWORD == ""){
-					msgError("密码不能为空！");
-					return null;
-				}
-				if(USER_CONPASSWORD == ""){
-					msgError("确认密码不能为空！");
-					return null;
-				}
-				if(ROLE_ID == ""){
-					msgError("角色不能为空！");
-					return null;
-				}
-				$.ajax({
-					type:"post",
-					url:"<%=path%>/UserManagementAction.do",
-					dataType:"json",
-					data:'operType=addUser&USER_CODE='+USER_CODE+'&USER_PASSWORD='+USER_PASSWORD+'&USER_NAME='+USER_NAME+'&CHU_ID='+CHU_ID+'&ROLE_ID='+ROLE_ID,
-					success:function(data){
-						if(data.SUCCESS == 1){
-							$("#flexTable").flexReload();
-							$("#dialog-add").dialog("close");
-						}else{
-							msgError('添加失败');
-						}
-					}
-				});
-			},
-			"取消": function(){
-				$(this).dialog("close");
-			}
-		},
-		close:function(){
-			$(this).dialog("close");
-		}
-	});
-	$("#dialog-update").dialog({
-		autoOpen:false,
-		height:270,
-		width:400,
-		modal:true,
-		resizable:false,
-		buttons:{
-			"确定":function(){
-				var USER_CODE = $("#USER_CODEU").val();
-				var USER_NAME = $("#USER_NAMEU").val();
-				var CHU_ID = $("#CHU_IDU").val();
-				var ROLE_ID = $("#ROLE_IDU").val();
-				if(USER_CODE == ""){
-					msgError("用户名不能为空！");
-					return null;
-				}
-				if(ROLE_ID == ""){
-					msgError("角色不能为空！");
-					return null;
-				}
-				$.ajax({
-					type:"post",
-					url:"<%=path%>/UserManagementAction.do",
-					dataType:"json",
-					data:'operType=updateUser&ID='+selId+'&USER_CODE='+USER_CODE+'&USER_NAME='+USER_NAME+'&CHU_ID='+CHU_ID+'&ROLE_ID='+ROLE_ID,
-					success:function(data){
-						if(data.SUCCESS == 1){
-							$("#flexTable").flexReload();
-							$("#dialog-update").dialog("close");
-						}else{
-							msgError('修改失败');
-						}
-					}
-				});
-			},
-			"取消": function(){
-				$(this).dialog("close");
-			}
-		},
-		close:function(){
-			$(this).dialog("close");
-		}
-	});
 	$("#add").button().click(function(){
-		$("#dialog-add").dialog("open");
+		<%-- location.replace("<%=path%>/jsp/admin/newContentAdd.jsp?NEW_TYPE=<%=NEW_TYPE%>"); --%>
 	});
 	$("#search").button().click(function(){
-		var NEW_TITLE_S = $("#NEW_TITLE_S").val();
-		var NEW_TIME_START = $("#NEW_TIME_START").val();
-		var NEW_TIME_END = $("#NEW_TIME_END").val();
-		var ISSUER_PER_S = $("#ISSUER_PER_S").val();
+		<%-- var NEW_TITLE_S = $("#NEW_TITLE_S").val();
+		 
 		$("#flexTable").flexOptions({
-			url: '<%=path%>/CommonAction.do?operType=searchContract&NEW_TYPE=NEW_TITLE_S='+encodeURIComponent(NEW_TITLE_S)+'&NEW_TIME_START='+NEW_TIME_START+'&NEW_TIME_END='+NEW_TIME_END+'&ISSUER_PER_S='+encodeURIComponent(ISSUER_PER_S),
+			url: '<%=path%>/DocManagementAction.do?operType=queryDoc', 
 			dataType: 'json'
-		}).flexReload();
+		}).flexReload(); --%>
 	});
 });
-function editItem(obj){
-	$tr = $(obj).parent().parent().parent();
-	selId = $tr.attr("ID");
-	selId = selId.substring(3, selId.length);
-	$("#USER_CODEU").val($tr.children().eq(1).text());
-	$("#USER_NAMEU").val($tr.children().eq(2).text());
-	$("#CHU_IDU").val($tr.children().eq(4).text());
-	$("#ROLE_IDU").val($tr.children().eq(6).text());
-	
-	$("#dialog-update").dialog("open");
+function updateNew(ID){
+	 <%-- location.replace("<%=path%>/jsp/admin/newContentUpdate.jsp?NEW_TYPE=<%=NEW_TYPE%>&ID="+ID); --%>
 }
 </script>
 </head>
@@ -234,9 +128,7 @@ function editItem(obj){
                                                             <td width="5">
                                                                 <img src="<%=path%>/images/blueui/index1_35.gif" width="5" height="39" />
                                                             </td>
-                                                            <td align="center" background="<%=path%>/images/blueui/index1_36.gif">
-                                                                <a href="#" class="font3"><strong>文件管理</strong></a>
-                                                            </td>
+                                                            
                                                             <td width="5">
                                                                 <img src="<%=path%>/images/blueui/index1_38.gif" width="5" height="39" />
                                                             </td>
@@ -261,15 +153,17 @@ function editItem(obj){
                                                         <tr>
                                                             <td>
                                                                 <table width="100%" border="0" cellpadding="0" cellspacing="5" bgcolor="#FFFFFF">
-                                                                    <tr>
+                                                                   <%--  <tr>
                                                                         <td align="left">
-																			&nbsp;文件名：<input id="NEW_TITLE_S" type="text" />&nbsp;&nbsp;
-																			&nbsp; 
-																			 
-																			<input id="search" type="submit" value="查询"/>
-                                                                        	<input id="add" type="submit" value="添加文件" style="float:right;"/>
+																			&nbsp;新闻标题：<input id="NEW_TITLE_S" type="text" />&nbsp;&nbsp;
+																			&nbsp;新闻发布时间：<input id="NEW_TIME_START" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+																			<img src="<%=path%>/images/blueui/lang.gif" />
+																			<input id="NEW_TIME_END" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+																			&nbsp;发布人：<input id="ISSUER_PER_S" type="text" />&nbsp;&nbsp;
+																			&nbsp;<input id="search" type="submit" value="搜索"/>
+                                                                        	&nbsp;<input id="add" type="submit" value="添加内容"/>
                                                                         </td>
-                                                                    </tr>
+                                                                    </tr> --%>
                                                                 </table>
                                                             </td>
                                                         </tr>
@@ -298,81 +192,5 @@ function editItem(obj){
 			</td>
 		</tr>
 	</table>
-	<div id="dialog-add" title="添加文件" style="font-size:14px;">
-		<table style="font-size:14px;margin-top:10px;margin-left:10px;">
-			<tr>
-				<td style="text-align:right;height:30px;width:100px;">文件名：</td>
-				<td style="height:30px;width:300px;"><input id="USER_CODE" type="text" /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">地址：</td>
-				<td style="height:30px;"><input id="USER_PASSWORD" type="password" /></td>
-			</tr>
-			<%-- <tr>
-				<td style="text-align:right;height:30px;">确认密码：</td>
-				<td style="height:30px;"><input id="USER_CONPASSWORD" type="password" /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">姓名：</td>
-				<td style="height:30px;"><input id="USER_NAME" type="text" /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">处室：</td>
-				<td style="height:30px;"><select id="CHU_ID" style="width:100px;">
-					<option value="">请选择</option>
-					<%
-					for(int i=0;i<chuList.size();i++){
-						out.print("<option value='"+((HashMap)chuList.get(i)).get("ID")+"'>"+((HashMap)chuList.get(i)).get("CHU_NAME")+"</option>");
-					}
-					%>
-				</select></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">角色：</td>
-				<td style="height:30px;"><select id="ROLE_ID" style="width:100px;">
-					<option value="">请选择</option>
-					<%
-					for(int i=0;i<roleList.size();i++){
-						out.print("<option value='"+((HashMap)roleList.get(i)).get("ID")+"'>"+((HashMap)roleList.get(i)).get("ROLE_NAME")+"</option>");
-					}
-					%>
-				</select></td>
-			</tr> --%>
-		</table>
-	</div>
-	<div id="dialog-update" title="修改用户" style="font-size:14px;">
-		<table style="font-size:14px;margin-top:10px;margin-left:10px;">
-			<tr>
-				<td style="text-align:right;height:30px;width:100px;">用户名：</td>
-				<td style="height:30px;width:300px;"><input id="USER_CODEU" type="text" /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">姓名：</td>
-				<td style="height:30px;"><input id="USER_NAMEU" type="text" /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">处室：</td>
-				<td style="height:30px;"><select id="CHU_IDU" style="width:100px;">
-					<option value="">请选择</option>
-					<%
-					for(int i=0;i<chuList.size();i++){
-						out.print("<option value='"+((HashMap)chuList.get(i)).get("ID")+"'>"+((HashMap)chuList.get(i)).get("CHU_NAME")+"</option>");
-					}
-					%>
-				</select></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;height:30px;">角色：</td>
-				<td style="height:30px;"><select id="ROLE_IDU" style="width:100px;">
-					<option value="">请选择</option>
-					<%
-					for(int i=0;i<roleList.size();i++){
-						out.print("<option value='"+((HashMap)roleList.get(i)).get("ID")+"'>"+((HashMap)roleList.get(i)).get("ROLE_NAME")+"</option>");
-					}
-					%>
-				</select></td>
-			</tr>
-		</table>
-	</div>
 </body>
 </html>
