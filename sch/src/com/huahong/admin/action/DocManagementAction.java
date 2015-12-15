@@ -52,13 +52,13 @@ public class DocManagementAction extends Action{
 //				 
 //				mapPara.put("condition", condition);
 //			}
-			int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM new_content N WHERE  ");
+			int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM new_content N WHERE N.FILES IS NOT NULL ");
 			String json="";
 			int a = Integer.parseInt(mapPara.get("page").toString())+1;
 			int b = Integer.parseInt(mapPara.get("rp").toString());
 			int page = a/b;
 			page = page + 1;
-			List list = dao.getNewList(mapPara);
+			List list = dao.getDocList(mapPara);
 			String path = request.getContextPath();
 			if(list!=null && list.size()>0){
 				json+="{\"page\":"+page+",\"total\":"+total+",\"rows\":[";

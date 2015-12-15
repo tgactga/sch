@@ -16,6 +16,15 @@ public class CommonDAO extends BaseDAO{
 			return null;
 		}
 	}
+	//查询文件列表
+	public List getDocList(HashMap map) {
+		try {
+			return dao.queryForList("CommonDAO.getDocList", map);
+		} catch (Exception e) {
+			Log.error("CommonDAO.getDocList方法出现异常 " + e.getMessage());
+			return null;
+		}
+	}
 	//添加新闻
 	public boolean insertNew(HashMap map){
 		try{
@@ -98,14 +107,6 @@ public class CommonDAO extends BaseDAO{
 	public List getFenList(String ID) {
 		try {
 			return dao.queryForList("CommonDAO.getFenList", ID);
-		} catch (Exception e) {
-			Log.error("CommonDAO.getFenList方法出现异常 " + e.getMessage());
-			return null;
-		}
-	}
-	public List analysNews(HashMap mapPara) {
-		try {
-			return dao.queryForList("CommonDAO.analysNews", mapPara);
 		} catch (Exception e) {
 			Log.error("CommonDAO.getFenList方法出现异常 " + e.getMessage());
 			return null;

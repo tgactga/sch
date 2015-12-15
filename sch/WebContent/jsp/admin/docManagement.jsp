@@ -63,7 +63,7 @@ $(function(){
 			{display: '文件名', name : 'FILES', width : 100, align: 'center'},
 			{display: '地址', name : 'FILES', width : 300, align: 'center'},
 			{display: '上传时间', name : 'EDIT_TIME', width : 100, align: 'center'},
-			 
+			{display: '状态', name : 'AUDIT_TAG', width : 50, align: 'center'},
 			{display: '操作', name : 'DEAL', width : 100, align: 'center'}
 			],
 		errormsg: '发生异常',

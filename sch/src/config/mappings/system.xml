@@ -76,11 +76,24 @@
 		<result property="NEW_FENNAME" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="CommonDAO.getNewList" resultMap="CommonDAO.getNewListMap" parameterClass="java.util.HashMap">
-		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.FILES,U.USER_NAME AS ISSUER_PER,N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME FROM new_content N 
+		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,N.EDIT_TIME,N.FILES,U.USER_NAME AS ISSUER_PER,N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG,B.CONTENT AS NEW_FENNAME FROM new_content N 
 		LEFT JOIN tree_base B ON N.NEW_FEN = B.ID 
 		LEFT JOIN user U ON N.ISSUER_PER = U.ID
 		WHERE N.NEW_TYPE=#NEW_TYPE# $condition$ ORDER BY N.EDIT_TIME DESC LIMIT $page$,$rp$ 
 	</select>
+	<!-- 文件查询 -->
+	<resultMap id="CommonDAO.getDocList" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="EDIT_TIME" column="EDIT_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="FILES" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_TYPE" column="NEW_TYPE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="NEW_FEN" column="NEW_FEN" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="AUDIT_TAG" column="AUDIT_TAG" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		
+	</resultMap>
+	 <select id="CommonDAO.getDocList" resultMap="CommonDAO.getDocList" parameterClass="java.util.HashMap">
+		SELECT N.ID,N.EDIT_TIME,N.FILES, N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG FROM new_content N  WHERE N.FILES IS NOT NULL
+	</select>  
 	<!-- 新闻添加 -->
 	<insert id="CommonDAO.insertNew"  parameterClass="java.util.HashMap">
 		INSERT INTO new_content (NEW_TITLE,NEW_TIME,ISSUER_PER,NEW_CONTENT,STATUS,NEW_TYPE,NEW_FEN,NEW_NUM,AUDIT_TAG,EDIT_TIME,FILES) VALUES 

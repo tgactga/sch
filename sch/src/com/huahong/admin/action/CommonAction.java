@@ -1,7 +1,5 @@
 package com.huahong.admin.action;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -38,79 +36,11 @@ public class CommonAction extends Action{
 			}else if(operType.equals("deleteCommon")){//公共删除
 				return deleteCommon(mapping, form, request, response);
 			}
-			
-			else if(operType.equals("analysNews")){
-				return analysNews(mapping, form, request, response);
-			}
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	    return null;
 	}
-	private ActionForward analysNews(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
-			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
-			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
-			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
-			CommonDAO dao = new CommonDAO();
-			CommonFun fun = new CommonFun();
-			String condition = "";
-			String startTime =  new String(mapPara.get("startTime").toString().getBytes("ISO-8859-1"),"UTF-8");
-			String endTime =  new String(mapPara.get("endTime").toString().getBytes("ISO-8859-1"),"UTF-8");
-			if("".equals(endTime)){
-				Date endTimeDate = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				endTime = sdf.format(endTimeDate);
-			}
-			if(!startTime.equals("")){
-				
-				condition += " t.NEW_TIME between  '"+startTime+"' AND '" + endTime+"'";
-			}
-			if(!condition.equals("")){
-				condition = " AND " + condition;
-				mapPara.put("condition", condition);
-			}
-			int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM(select  issuer_per,chu_id ,chu_name,count  from" +
-					" (select issuer_per,count,chu_id from (select t.issuer_per,count(*) count  from new_content t where 1=1 " + condition +
-					" group by t.issuer_per) tt  left join user u on tt.issuer_per=u.id)" +
-					" mm left join chu c on mm.chu_id=c.id) aaa");
-			String json="";
-			int a = Integer.parseInt(mapPara.get("page").toString())+1;
-			int b = Integer.parseInt(mapPara.get("rp").toString());
-			int page = a/b;
-			page = page + 1;
-			List list = dao.analysNews(mapPara);
-			String path = request.getContextPath();
-			if(list!=null && list.size()>0){
-				json+="{\"page\":"+page+",\"total\":"+total+",\"rows\":[";
-			    for(int i=0;i<list.size();i++){
-			    	
-			    	String ISSUER_PER = exchange.toHtml(((HashMap)list.get(i)).get("ISSUER_PER").toString());
-			    	String CHU_ID = exchange.toHtml(((HashMap)list.get(i)).get("CHU_ID").toString());
-			    	String CHU_NAME = exchange.toHtml(((HashMap)list.get(i)).get("CHU_NAME").toString());
-			    	String COUNT = exchange.toHtml(((HashMap)list.get(i)).get("COUNT").toString());
-			    	json+="{\"id\":\"\",";
-			    	json+="\"cell\":[\""+(i+a)+"\",\""+CHU_NAME+"\",\""+COUNT+"\",\""+ISSUER_PER+"\",\""+CHU_ID+"\"]},";
-			    }
-			    json=json.substring(0,json.length()-1);
-			    json+="]}";
-			}else{
-				json="[]";
-			}
-			//System.out.println(json);
-			response.getWriter().write(json);
-			response.getWriter().close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	    return null;
-	}
-	
-	
 	private ActionForward searchContract(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
