@@ -56,14 +56,14 @@ var taglen = 272;
 
 $(function(){
 	$("#flexTable").flexigrid({
-		url: '<%=path%>/DocManagementAction.do?operType=queryDoc&FILENAME=',
+		url: '<%=path%>/DocManagementAction.do?operType=queryDoc&FILENAME=', 
 		dataType: 'json',
 		colModel : [
 			{display: '序号', name : 'ROWNUM', width : 30, align: 'center'},
 			{display: '文件名', name : 'FILES', width : 100, align: 'center'},
 			{display: '地址', name : 'FILES', width : 300, align: 'center'},
-			{display: '上传时间', name : 'EDIT_TIME', width : 100, align: 'center'},
-			{display: '状态', name : 'AUDIT_TAG', width : 50, align: 'center'},
+			{display: '上传时间', name : 'EDIT_TIME', width : 400, align: 'center'},
+		//	 {display: '状态', name : 'AUDIT_TAG', width : 50, align: 'center'},
 			{display: '操作', name : 'DEAL', width : 100, align: 'center'}
 			],
 		errormsg: '发生异常',

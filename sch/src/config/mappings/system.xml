@@ -85,7 +85,7 @@
 	<resultMap id="CommonDAO.getDocList" class="java.util.HashMap">
 		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="EDIT_TIME" column="EDIT_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
-		<result property="FILES" column="NEW_FENNAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="FILES" column="FILES" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="NEW_TYPE" column="NEW_TYPE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="NEW_FEN" column="NEW_FEN" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="AUDIT_TAG" column="AUDIT_TAG" javaType="String" jdbcType="VARCHAR" nullValue=""/>

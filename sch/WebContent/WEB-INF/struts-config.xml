@@ -55,6 +55,9 @@
 		</action>
 		<action path="/XiaoYouAction" type="com.huahong.admin.action.XiaoYouAction">
 		</action>
+		<action path="/DocManagementAction" type="com.huahong.admin.action.DocManagementAction">
+		</action>
+		
 		
 		<!-- 配置 多个上传 -->  
 		<action path="/multiUpload" type="com.huahong.admin.action.UploadMoreAction" name="uploadMoreForm" scope="request">  

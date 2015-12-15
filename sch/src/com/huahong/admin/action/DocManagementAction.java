@@ -65,7 +65,7 @@ public class DocManagementAction extends Action{
 			    for(int i=0;i<list.size();i++){
 			    	String ID=exchange.toHtml(((HashMap)list.get(i)).get("ID").toString());
 //			    	String NEW_TITLE=exchange.toHtml(((HashMap)list.get(i)).get("NEW_TITLE").toString());
-			    	String NEW_TIME = exchange.toHtml(((HashMap)list.get(i)).get("NEW_TIME").toString());
+//			    	String NEW_TIME = exchange.toHtml(((HashMap)list.get(i)).get("NEW_TIME").toString());
 //			    	String ISSUER_PER = exchange.toHtml(((HashMap)list.get(i)).get("ISSUER_PER").toString());
 //			    	String NEW_FEN = exchange.toHtml(((HashMap)list.get(i)).get("NEW_FEN").toString());
 //			    	String AUDIT_TAG = exchange.toHtml(((HashMap)list.get(i)).get("AUDIT_TAG").toString());
