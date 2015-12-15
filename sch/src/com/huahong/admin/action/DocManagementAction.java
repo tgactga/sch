@@ -47,12 +47,12 @@ public class DocManagementAction extends Action{
 			CommonFun fun = new CommonFun();
 			String condition = "";
 			 
-//			if(!condition.equals("")){
+			if(!FILENAME.equals("")){
 //				condition = condition.substring(0,condition.length()-4);
-//				 
-//				mapPara.put("condition", condition);
-//			}
-			int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM new_content N WHERE N.FILES IS NOT NULL ");
+				condition = "  AND  FILES LIKE '%"+FILENAME+"%' ";
+				mapPara.put("condition", condition);
+			}
+			int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM new_content N WHERE N.FILES IS NOT NULL"+condition);
 			String json="";
 			int a = Integer.parseInt(mapPara.get("page").toString())+1;
 			int b = Integer.parseInt(mapPara.get("rp").toString());

@@ -92,7 +92,7 @@
 		
 	</resultMap>
 	 <select id="CommonDAO.getDocList" resultMap="CommonDAO.getDocList" parameterClass="java.util.HashMap">
-		SELECT N.ID,N.EDIT_TIME,N.FILES, N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG FROM new_content N  WHERE N.FILES IS NOT NULL
+		SELECT N.ID,N.EDIT_TIME,N.FILES, N.NEW_TYPE,N.NEW_FEN,N.AUDIT_TAG FROM new_content N  WHERE N.FILES IS NOT NULL $condition$
 	</select>  
 	<!-- 新闻添加 -->
 	<insert id="CommonDAO.insertNew"  parameterClass="java.util.HashMap">
