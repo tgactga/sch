@@ -4,9 +4,26 @@ ALTER TABLE `new_content`
 ADD COLUMN `FILES`  varchar(20000) NULL AFTER `EDIT_TIME`;
 
 INSERT INTO `role_tree` VALUES (631, 2, 118);
-INTO `tree` VALUES (118, 113, '文件管理', '/jsp/admin/docManagement.jsp', '0');
+
 INSERT INTO `role_tree` VALUES (632, 2, 119);
-INSERT INTO `tree` VALUES (119, 113, '统计分析', '/jsp/admin/userManagement.jsp', '0');
+INTO `tree` VALUES (118, 113, '文件管理', '/jsp/admin/docManagement.jsp', '0');
 INSERT INTO `tree` VALUES (119, 113, '统计分析', '/jsp/admin/analysNews.jsp', '0');
+
+UPDATE  `tree` N  SET  N.PATH_FILE = '/jsp/admin/allUserLog.jsp'   WHERE N.ID = '117'
+
+-- ----------------------------
+-- Table structure for userlog
+-- ----------------------------
+DROP TABLE IF EXISTS `userlog`;
+CREATE TABLE `userlog` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '内码',
+  `USER_CODE` varchar(50) DEFAULT NULL COMMENT '用户名',
+    `LOGIN_TIME` datetime DEFAULT NULL COMMENT '登录时间',
+  `IP` varchar(50) DEFAULT NULL COMMENT '角色ID',
+`URL` varchar(50) DEFAULT NULL COMMENT '角色ID',
+ 
+  `BUTTON` varchar(50) DEFAULT NULL COMMENT '操作按钮',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
  
