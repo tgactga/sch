@@ -42,7 +42,7 @@ public class DocManagementAction extends Action{
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
-//			String NEW_TYPE = mapPara.get("NEW_TYPE").toString();
+			String FILENAME = mapPara.get("FILENAME").toString();
 			CommonDAO dao = new CommonDAO();
 			CommonFun fun = new CommonFun();
 			String condition = "";

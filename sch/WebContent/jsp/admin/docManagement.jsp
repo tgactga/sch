@@ -56,7 +56,7 @@ var taglen = 272;
 
 $(function(){
 	$("#flexTable").flexigrid({
-		url: '<%=path%>/DocManagementAction.do?operType=queryDoc',
+		url: '<%=path%>/DocManagementAction.do?operType=queryDoc&FILENAME=',
 		dataType: 'json',
 		colModel : [
 			{display: '序号', name : 'ROWNUM', width : 30, align: 'center'},
@@ -94,12 +94,12 @@ $(function(){
 		<%-- location.replace("<%=path%>/jsp/admin/newContentAdd.jsp?NEW_TYPE=<%=NEW_TYPE%>"); --%>
 	});
 	$("#search").button().click(function(){
-		<%-- var NEW_TITLE_S = $("#NEW_TITLE_S").val();
+		  var FILENAME = $("#FILENAME").val();
 		 
 		$("#flexTable").flexOptions({
-			url: '<%=path%>/DocManagementAction.do?operType=queryDoc', 
+			url: '<%=path%>/DocManagementAction.do?operType=queryDoc&&FILENAME='+encodeURIComponent(FILENAME)+'', 
 			dataType: 'json'
-		}).flexReload(); --%>
+		}).flexReload();  
 	});
 });
 function updateNew(ID){
@@ -153,17 +153,16 @@ function updateNew(ID){
                                                         <tr>
                                                             <td>
                                                                 <table width="100%" border="0" cellpadding="0" cellspacing="5" bgcolor="#FFFFFF">
-                                                                   <%--  <tr>
+                                                                    <tr>
                                                                         <td align="left">
-																			&nbsp;新闻标题：<input id="NEW_TITLE_S" type="text" />&nbsp;&nbsp;
-																			&nbsp;新闻发布时间：<input id="NEW_TIME_START" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
-																			<img src="<%=path%>/images/blueui/lang.gif" />
-																			<input id="NEW_TIME_END" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
-																			&nbsp;发布人：<input id="ISSUER_PER_S" type="text" />&nbsp;&nbsp;
+																			&nbsp;文件名称：<input id="FILENAME" type="text" />&nbsp;&nbsp;
+																			 
 																			&nbsp;<input id="search" type="submit" value="搜索"/>
-                                                                        	&nbsp;<input id="add" type="submit" value="添加内容"/>
+																			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="add" type="submit" value="添加文件"/>
                                                                         </td>
-                                                                    </tr> --%>
+                                                                    </tr>  
                                                                 </table>
                                                             </td>
                                                         </tr>
