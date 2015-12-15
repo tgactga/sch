@@ -45,4 +45,13 @@ public class UserManagementDAO extends BaseDAO{
 			return false;
 		}
 	}
+	//查询用户 操作日志
+	public List getAllUsrLogList(HashMap map){
+		try {
+			return dao.queryForList("UserManagementDAO.getAllUsrLogList", null);
+		} catch (Exception e) {
+			Log.error("UserManagementDAO.getAllUsrLogList方法出现异常 " + e.getMessage());
+			return null;
+		}
+	}
 }

@@ -33,11 +33,62 @@ public class UserManagementAction extends Action{
 				//return disableUser(mapping, form, request, response);//禁用用户
 			}else if(operType.equals("getUnitDep")){
 				//return getUnitDep(mapping, form, request, response);//查询科室
+			}else if(operType.equals("getAllUsrLog")){
+				return getAllUsrLogList(mapping, form, request, response);   //getAllUsrLogList  查询用户操作日志
 			}
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	    return null;
+	}
+	private ActionForward getAllUsrLogList(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) {
+		 
+			try {
+				request.setCharacterEncoding("utf-8");
+				response.setCharacterEncoding("utf-8");
+				String path = request.getContextPath();
+				HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
+				mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
+				mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
+				UserManagementDAO dao = new UserManagementDAO();
+				CommonFun fun = new CommonFun();
+				int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM userlog");
+				String json="";
+				int a = Integer.parseInt(mapPara.get("page").toString())+1;
+				int b = Integer.parseInt(mapPara.get("rp").toString());
+				int page = a/b;
+				page = page + 1;
+				List list = dao.getAllUsrLogList(mapPara);
+				if(list!=null && list.size()>0){
+					json+="{\"page\":"+page+",\"total\":"+total+",\"rows\":[";
+				    for(int i=0;i<list.size();i++){
+				    	String ID=exchange.toHtml(((HashMap)list.get(i)).get("ID").toString());
+				    	String USER_CODE=exchange.toHtml(((HashMap)list.get(i)).get("USER_CODE").toString());
+//				    	String USER_NAME = exchange.toHtml(((HashMap)list.get(i)).get("USER_NAME").toString());
+//				    	String ROLE_NAME = exchange.toHtml(((HashMap)list.get(i)).get("ROLE_NAME").toString());
+				    	String LOGIN_TIME = exchange.toHtml(((HashMap)list.get(i)).get("LOGIN_TIME").toString());
+				    	String IP = exchange.toHtml(((HashMap)list.get(i)).get("IP").toString());
+				    	String URL = exchange.toHtml(((HashMap)list.get(i)).get("URL").toString());
+				    	String BUTTON = exchange.toHtml(((HashMap)list.get(i)).get("BUTTON").toString());
+				    	 
+				    	json+="{\"id\":\""+ID+"\",";
+				    	json+="\"cell\":[\""+(i+a)+"\",\""+USER_CODE+"\",\""+LOGIN_TIME+"\",\""+IP+"\",\""+URL+"\",\""+BUTTON+"\"]},";
+				    }
+				    json=json.substring(0,json.length()-1);
+				    json+="]}";
+				}else{
+					json="[]";
+				}
+				//System.out.println(json);
+				response.getWriter().write(json);
+				response.getWriter().close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		    return null;
 	}
 	private ActionForward searchAllUser(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {

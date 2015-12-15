@@ -424,4 +424,16 @@
 	<select id="XiaoYouDAO.getXiaoYouMingBiYeList" resultMap="XiaoYouDAO.getXiaoYouMingBiYeListMap" parameterClass="java.util.HashMap">
 		SELECT XIAOYOU_NAME,XIAOYOU_CLASS FROM xiaoyou_ming WHERE BIYE=$BIYE$ AND XIAOYOU_SUO=$XIAOYOU_SUO$ ORDER BY XIAOYOU_CLASS_ORD
 	</select>
+	<!-- 查询所有用户的操作日志   -->
+	<resultMap id="UserManagementDAO.getAllUsrLogList" class="java.util.HashMap">
+		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="USER_CODE" column="USER_CODE" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="LOGIN_TIME" column="LOGIN_TIME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="IP" column="IP" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="URL" column="URL" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="BUTTON" column="BUTTON" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	<select id="UserManagementDAO.getAllUsrLogList" resultMap="UserManagementDAO.getAllUsrLogList" parameterClass="java.util.HashMap">
+		SELECT N.ID,N.USER_CODE,N.LOGIN_TIME,N.IP,N.URL,N.BUTTON FROM userlog  N
+	</select>
 </sqlMap>
