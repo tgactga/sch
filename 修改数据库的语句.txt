@@ -26,4 +26,5 @@ CREATE TABLE `userlog` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
- 
+
+INSERT INTO `role` VALUES (4, '004', '处室管理员', '只能发布、审核自己处室的数据');
