@@ -57,6 +57,9 @@ public class CommonAction extends Action{
 			String NEW_TIME_START = new String(mapPara.get("NEW_TIME_START").toString().getBytes("ISO-8859-1"),"UTF-8");
 			String NEW_TIME_END = new String(mapPara.get("NEW_TIME_END").toString().getBytes("ISO-8859-1"),"UTF-8");
 			String ISSUER_PER_S =  new String(mapPara.get("ISSUER_PER_S").toString().getBytes("ISO-8859-1"),"UTF-8");
+			
+			
+			
 			if(!NEW_TITLE_S.equals("")){
 				condition += "N.NEW_TITLE LIKE '%"+NEW_TITLE_S+"%' AND ";
 			}
@@ -70,6 +73,12 @@ public class CommonAction extends Action{
 			if(!ISSUER_PER_S.equals("")){
 				condition += "N.ISSUER_PER LIKE '%"+ISSUER_PER_S+"%' AND ";
 			}
+			String roleId = request.getSession().getAttribute("ROLE_ID") + "";
+			if("4".equals(roleId)){
+				String chuId = request.getSession().getAttribute("CHU_ID") + "";
+				condition += " N.ISSUER_PER IN(select id from user uu where uu.chu_id="+chuId +") AND";
+			}
+			
 			if(!condition.equals("")){
 				condition = condition.substring(0,condition.length()-4);
 				condition = " AND " + condition;

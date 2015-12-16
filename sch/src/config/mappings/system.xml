@@ -24,9 +24,11 @@
 		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="USER_NAME" column="USER_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="ROLE_NAME" column="ROLE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="ROLE_ID" column="ROLE_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="CHU_ID" column="CHU_ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="AdminLoginDAO.getAdminUser" resultMap="AdminLoginDAO.getAdminUserMap" parameterClass="java.util.HashMap">
-		SELECT U.ID,U.USER_NAME,R.ROLE_NAME FROM user U 
+		SELECT U.ID,U.USER_NAME,R.ROLE_NAME ,U.ROLE_ID,U.CHU_ID  FROM user U 
 		LEFT JOIN role R ON R.ID=U.ROLE_ID WHERE U.USER_CODE=#USER_CODE# AND U.USER_PASSWORD=#USER_PASSWORD_MI#
 	</select>
 	<!-- 修改系统用户登陆密码 -->

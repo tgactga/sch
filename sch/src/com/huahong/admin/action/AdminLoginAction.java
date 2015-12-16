@@ -80,7 +80,9 @@ public class AdminLoginAction extends Action{
 					session.setAttribute("USER_ID", ((HashMap)list.get(0)).get("ID").toString());
 					session.setAttribute("USER_CODE", mapPara.get("USER_CODE").toString());
 					session.setAttribute("USER_NAME", ((HashMap)list.get(0)).get("USER_NAME").toString());
+					session.setAttribute("ROLE_ID", ((HashMap)list.get(0)).get("ROLE_ID").toString());
 					session.setAttribute("ROLE_NAME", ((HashMap)list.get(0)).get("ROLE_NAME").toString());
+					session.setAttribute("CHU_ID", ((HashMap)list.get(0)).get("CHU_ID").toString());
 					response.getWriter().write("{\"SUCCESS\":\"1\"}");
 				    response.getWriter().close();
 				}else{//用户名或密码输入有误
