@@ -70,9 +70,9 @@ public class UserManagementAction extends Action{
 //				    	String USER_NAME = exchange.toHtml(((HashMap)list.get(i)).get("USER_NAME").toString());
 //				    	String ROLE_NAME = exchange.toHtml(((HashMap)list.get(i)).get("ROLE_NAME").toString());
 				    	String LOGIN_TIME = exchange.toHtml(((HashMap)list.get(i)).get("LOGIN_TIME").toString());
-				    	String IP = exchange.toHtml(((HashMap)list.get(i)).get("IP").toString());
+				    	String IP =   exchange.toHtml(((HashMap)list.get(i)).get("IP").toString());
 				    	String URL = exchange.toHtml(((HashMap)list.get(i)).get("URL").toString());
-				    	String BUTTON = exchange.toHtml(((HashMap)list.get(i)).get("BUTTON").toString());
+				    	String BUTTON =  exchange.toHtml(((HashMap)list.get(i)).get("BUTTON").toString());
 				    	 
 				    	json+="{\"id\":\""+ID+"\",";
 				    	json+="\"cell\":[\""+(i+a)+"\",\""+USER_CODE+"\",\""+LOGIN_TIME+"\",\""+IP+"\",\""+URL+"\",\""+BUTTON+"\"]},";

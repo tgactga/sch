@@ -20,7 +20,7 @@ String title = fun.retTitle(NEW_TYPE); */
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>新闻信息</title>
+    <title>文件管理</title>
     <link href="<%=path%>/css/blueui/style.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/flexigridStyle/flexigrid.css" rel="stylesheet" type="text/css" />
     <link href="<%=path%>/css/jqueryui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
@@ -53,6 +53,7 @@ if(window.XMLHttpRequest){
 }
 var	sHeight = window.parent.document.body.clientHeight;;
 var taglen = 272;
+//var URL = 'd:\\sch\\';
 
 $(function(){
 	$("#flexTable").flexigrid({
@@ -61,9 +62,9 @@ $(function(){
 		colModel : [
 			{display: '序号', name : 'ROWNUM', width : 30, align: 'center'},
 			{display: '文件名', name : 'FILES', width : 100, align: 'center'},
-			{display: '地址', name : 'FILES', width : 300, align: 'center'},
-			{display: '上传时间', name : 'EDIT_TIME', width : 400, align: 'center'},
-		//	 {display: '状态', name : 'AUDIT_TAG', width : 50, align: 'center'},
+			{display: '地址', name : 'URL', width : 300, align: 'center'},
+			// {display: 'URL', name : 'URL', width : 230, align: 'center'},
+			{display: '上传时间', name : 'EDIT_TIME', width : 400, align: 'center'},			
 			{display: '操作', name : 'DEAL', width : 100, align: 'center'}
 			],
 		errormsg: '发生异常',
@@ -160,7 +161,8 @@ function updateNew(ID){
 																			&nbsp;<input id="search" type="submit" value="搜索"/>
 																			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                         	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="add" type="submit" value="添加文件"/>
+                                                                        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        	<!-- <input id="add" type="submit" value="添加文件"/> -->
                                                                         </td>
                                                                     </tr>  
                                                                 </table>

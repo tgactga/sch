@@ -73,11 +73,12 @@ public class DocManagementAction extends Action{
 //			    	else if(AUDIT_TAG.equals("1")) AUDIT_TAG = "待审核";
 //			    	else if(AUDIT_TAG.equals("2")) AUDIT_TAG = "已发布";
 			    	String FILES = exchange.toHtml(((HashMap)list.get(i)).get("FILES").toString());
+			    	String URL= exchange.toHtml("@d:sch");
 			    	String EDIT_TIME =  exchange.toHtml(((HashMap)list.get(i)).get("EDIT_TIME").toString());
 //			    	NEW_TITLE = "<a href='"+path+"/jsp/newDetail.jsp?ID="+ID+"' target='_blank' title='点击查看新闻详情'>"+NEW_TITLE+"</a>";
 			    	String DEAL = "<a href='#' onclick='updateNew(\\\""+ID+"\\\")'>下载</a>&nbsp;|&nbsp;<a href='#' onclick='deleteItem(\\\""+ID+"\\\",\\\"new_content\\\")'>删除</a>";
 			    	json+="{\"id\":\""+ID+"\",";
-			    	json+="\"cell\":[\""+(i+a)+"\",\""+FILES+"\",\""+FILES+"\",\""+EDIT_TIME+"\",\""+DEAL+"\"]},";
+			    	json+="\"cell\":[\""+(i+a)+"\",\""+FILES+"\",\""+URL+"\",\""+EDIT_TIME+"\",\""+DEAL+"\"]},";
 			    }
 			    json=json.substring(0,json.length()-1);
 			    json+="]}";

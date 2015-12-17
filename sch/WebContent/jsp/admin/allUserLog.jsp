@@ -59,9 +59,9 @@ $(function(){
 			{display: '用户名', name : 'USER_CODE', width : 100, align: 'center'},
 		//	{display: '姓名', name : 'USER_NAME', width : 100, align: 'center'},
 			{display: '登录时间', name : 'LOGIN_TIME', width : 100, align: 'center'},
-			{display: '计算机IP', name : 'IP', width : 100, align: 'center', hide: true},
+			{display: '计算机IP', name : 'IP', width : 100, align: 'center' },
 			{display: 'URL', name : 'URL', width : 100, align: 'center'},
-			{display: '操作按钮', name : 'BUTTON', width : 100, align: 'center', hide: true}
+			{display: '操作按钮', name : 'BUTTON', width : 100, align: 'center' }
 			 
 			],
 		errormsg: '发生异常',
