@@ -23,7 +23,7 @@ if(list!=null && list.size()>0){
 
 List listTongZhi = CommonFun.showTopNew("7", "1", "16");//通知公告
 List listXiaoNew = CommonFun.showTopNew("3", "0", "6");//校园新闻
-List listMeiTi = CommonFun.showTopNew("12", "0", "10");//媒体关注
+List listMeiTi = CommonFun.showTopNew("12", "0", "6");//媒体关注
 List listTeBie = CommonFun.showTopNew("13", "0", "6");//特别关注
 List listBot = dao.getHotNewList("2");//首页底部热点图片
 List xiaoZhang = dao.getHotNewList("3");
