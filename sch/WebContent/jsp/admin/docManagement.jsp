@@ -103,8 +103,11 @@ $(function(){
 		}).flexReload();  
 	});
 });
-function updateNew(ID){
-	 <%-- location.replace("<%=path%>/jsp/admin/newContentUpdate.jsp?NEW_TYPE=<%=NEW_TYPE%>&ID="+ID); --%>
+function dowload(URL){
+	location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=dowload");
+}
+function deleteDoc(URL){
+	 location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=deleteDoc");
 }
 </script>
 </head>
