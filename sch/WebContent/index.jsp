@@ -21,7 +21,7 @@ if(list!=null && list.size()>0){
 	texts = texts.substring(0,texts.length()-1);
 }
 
-List listTongZhi = CommonFun.showTopNew("7", "1", "6");//通知公告
+List listTongZhi = CommonFun.showTopNew("7", "1", "16");//通知公告
 List listXiaoNew = CommonFun.showTopNew("3", "0", "6");//校园新闻
 List listMeiTi = CommonFun.showTopNew("12", "0", "10");//媒体关注
 List listTeBie = CommonFun.showTopNew("13", "0", "6");//特别关注
@@ -76,7 +76,7 @@ $(function(){
 		<div class="huandeng fdL">
 			<script type="text/javascript">
 				var swf_width = 740;
-        		var swf_height = 450;
+        		var swf_height = 562;
         		var config = '6|0xffffff|0x0099FF|20|0xffffff|0x0099FF|0x000000';//config 设置分别为: 自动播放时间(秒)|文字颜色|文字背景色|文字背景透明度|按键数字色|当前按键色|普通按键色
         		var files = '<%=files%>';
         		var links = '<%=links%>';

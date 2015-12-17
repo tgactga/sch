@@ -96,11 +96,19 @@ public class DocManagementAction extends Action{
 			if(downloadFilePath.isDirectory()){
 				files = downloadFilePath.listFiles();
 				int count = 0;
-				SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH24:mi:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
 				for(File file : files){
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("ROWNUM", count++);
-					map.put("FILES", file.getName());
+					
+					String fileCode=(String)System.getProperties().get("file.encoding");
+
+					String fileName = file.getName();
+
+					fileName = new String (fileName.getBytes(fileCode),fileCode);
+
+						
+					map.put("FILES", fileName);
 					map.put("URL", fileUploadPath + file.getName());
 					Calendar cal = Calendar.getInstance();  
 			        long time = file.lastModified();  
@@ -126,8 +134,8 @@ public class DocManagementAction extends Action{
 				    	String FILES = exchange.toHtml(((HashMap)list.get(i)).get("FILES").toString());
 				    	String URL= exchange.toHtml(((HashMap)list.get(i)).get("URL").toString());
 				    	String EDIT_TIME =  exchange.toHtml(((HashMap)list.get(i)).get("EDIT_TIME").toString());
-				    	String DEAL = "<a href='#' onclick='dowload(\""+URL+"\")'>下载</a>&nbsp;|&nbsp;"+
-				    				  "<a href='#' onclick='deleteDoc(\""+URL+"\")'>删除</a>";
+				    	String DEAL = "<a href='#' onclick='dowload(\\\""+URL+"\\\")'>下载</a>&nbsp;|&nbsp;"+
+				    				  "<a href='#' onclick='deleteDoc(\\\""+URL+"\\\")'>删除</a>";
 				    	json+="{\"id\":\""+ID+"\",";
 				    	json+="\"cell\":[\""+(i+a)+"\",\""+FILES+"\",\""+URL+"\",\""+EDIT_TIME+"\",\""+DEAL+"\"]},";
 			    	}
