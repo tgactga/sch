@@ -117,12 +117,25 @@ function save(AUDIT_TAG){
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
 		dataType:"json",
-		data:'operType=addNew&NEW_FEN='+encodeURIComponent(NEW_FEN)
+		
+		data :{
+			operType : "addNew",
+			NEW_FEN : encodeURIComponent(NEW_FEN),
+			NEW_TITLE : encodeURIComponent(NEW_TITLE),
+			NEW_TIME : NEW_TIME,
+			NEW_CONTENT : encodeURIComponent(NEW_CONTENT),
+			NEW_TYPE : <%=NEW_TYPE%>,
+			AUDIT_TAG :  AUDIT_TAG,
+			FILES : fileNams
+			
+		},
+		
+		<%-- data:'operType=addNew&NEW_FEN='+encodeURIComponent(NEW_FEN)
 			+'&NEW_TITLE='+encodeURIComponent(NEW_TITLE)+'&NEW_TIME='
 			+NEW_TIME+'&NEW_CONTENT='+encodeURIComponent(NEW_CONTENT)
 			+'&NEW_TYPE=<%=NEW_TYPE%>&AUDIT_TAG='+AUDIT_TAG
-			+'&FILES='+fileNams
-			,
+			+'&FILES='+fileNamsTmp7
+			, --%>
 		success:function(data){
 			if(data.SUCCESS == 1){
 				msgSuccessUrl('添加成功', '<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>');
@@ -138,6 +151,19 @@ function uploadFile(){
 	$("#fileUploadDia").dialog("open");
 }
 
+function iFrameHeight() {
+	var ifm= document.getElementById("myIframe");
+	var subWeb = document.frames ? document.frames["myIframe"].document : ifm.contentDocument;   
+	if(ifm != null && subWeb != null) {
+	   ifm.height = subWeb.body.scrollHeight;
+	   ifm.width = subWeb.body.scrollWidth;
+	}
+}  
+function deleteFile(fileName){ //删除文件
+	var filesTmp = $("#FILES").html();
+	var filesTmp1 = filesTmp.replace('<br>'+fileName  + '&nbsp;&nbsp;<a href="javascript:;" onclick="deleteFile(\'' + fileName + '\');">删除</a>','');
+	$('#FILES').html(filesTmp1);
+}
 </script>
 </head>
 <body>
@@ -256,7 +282,7 @@ function uploadFile(){
 	</table>
 	
 	<div id="fileUploadDia" title="上传附件" style="font-size:14px;">
-		<iframe id="myIframe" src="upload.jsp" width="97%" height="97%"> 
+		<iframe id="myIframe" src="upload.jsp" width="97%″ height="97%″ frameborder="no" border="0″ onLoad="iFrameHeight()"></iframe>
 	</div>
 </body>
 </html>

@@ -100,17 +100,29 @@ function save(AUDIT_TAG){
 	var NEW_TITLE = $("#NEW_TITLE").val();
 	var NEW_TIME = $("#NEW_TIME").val();
 	var NEW_CONTENT = CKEDITOR.instances.NEW_CONTENT.getData();
-	var fileNames = $("#FILES").html();
+	var fileNams = $("#FILES").html();
 	$.ajax({
 		type:"post",
 		url:"<%=path%>/CommonAction.do",
 		dataType:"json",
-		data:'operType=updateNew&ID=<%=ID%>&NEW_TITLE='+encodeURIComponent(NEW_TITLE)
+		
+		data:{
+			operType : "updateNew",
+			ID : <%=ID%>,
+			NEW_TITLE  : encodeURIComponent(NEW_TITLE),
+			NEW_TIME : NEW_TIME,
+			NEW_CONTENT : encodeURIComponent(NEW_CONTENT),
+			AUDIT_TAG : AUDIT_TAG,
+			FILES  : fileNams
+			
+		},
+		
+		<%-- data:'operType=updateNew&ID=<%=ID%>&NEW_TITLE='+encodeURIComponent(NEW_TITLE)
 			+'&NEW_TIME='+NEW_TIME+'&NEW_CONTENT='
 			+encodeURIComponent(NEW_CONTENT)
 			+'&AUDIT_TAG='+AUDIT_TAG
-			+'&FILES='+fileNames
-			,
+			+'&FILES='+fileNamsTmp7
+			, --%>
 		success:function(data){
 			if(data.SUCCESS == 1){
 				msgSuccessUrl('修改成功', '<%=path%>/jsp/admin/newContent.jsp?NEW_TYPE=<%=NEW_TYPE%>');
@@ -124,6 +136,12 @@ function save(AUDIT_TAG){
 function uploadFile(){
 	$("#myIframe").attr("src",'upload.jsp?saveFlag='+saveFlag);
 	$("#fileUploadDia").dialog("open");
+}
+
+function deleteFile(fileName){ //删除文件
+	var filesTmp = $("#FILES").html();
+	var filesTmp1 = filesTmp.replace('<br>'+fileName  + '&nbsp;&nbsp;<a href="javascript:;" onclick="deleteFile(\'' + fileName + '\');">删除</a>','');
+	$('#FILES').html(filesTmp1);
 }
 </script>
 </head>
@@ -231,7 +249,7 @@ function uploadFile(){
 	</table>
 	
 	<div id="fileUploadDia" title="上传附件" style="font-size:14px;">
-		<iframe id="myIframe" src="upload.jsp" width="97%" height="97%"> 
+		<iframe id="myIframe" src="upload.jsp" width="97%″ height="97%″ frameborder="no" border="0″ onLoad="iFrameHeight()"></iframe>
 	</div>
 	
 </body>

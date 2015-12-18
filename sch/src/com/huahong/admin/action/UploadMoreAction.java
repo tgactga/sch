@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;  
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;  
@@ -37,6 +38,13 @@ public class UploadMoreAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,  
             HttpServletRequest request, HttpServletResponse response)  
     {  
+    	try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e2) {
+			e2.printStackTrace();
+		}
+		
         UploadMoreForm umForm = (UploadMoreForm) form;  
         int count = 0;  
         try {  
@@ -44,7 +52,8 @@ public class UploadMoreAction extends Action {
             for (int i = 0; i < count; i++)  
             {  
                 FormFile file = umForm.getFile(i);   
-                System.out.println(file.getFileName());
+                
+                
                 FileOutputStream fos = new FileOutputStream(fileUploadPath + "\\" + file.getFileName()); //创建输出流  
                 fos.write(file.getFileData()); //写入  
                 fos.flush();//释放  

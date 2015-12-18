@@ -48,11 +48,13 @@
                   // 插入<div>元素及其子元素  
                   var fileHtml = '';  
                   fileHtml += '<div  id = "file_preview' + id + '" style ="border-bottom: 1px solid #CCC;">';  
-                  fileHtml += '<img  width =30 height = 30 src ="<%=basePath%>/images/file.png" title="' + fullName + '"/>';  
-                  fileHtml += '<a href="javascript:;" onclick="removeFile(' + id + ');">删除</a>   ';  
-                  fileHtml += fullName.substr(fullName.lastIndexOf('\\')+1) +'  </div>';  
+                  fileHtml += '<img  width =20 height = 20 src ="<%=basePath%>/images/file.png" title="' + fullName + '"/>';  
+                  fileHtml += fullName.substr(fullName.lastIndexOf('\\')+1) ;  
+                  fileHtml += '&nbsp;&nbsp;<a href="javascript:;" onclick="removeFile(' + id + ');">删除</a>   '+'  </div>';  
+                  
+                  var fileLastName = fullName.substr(fullName.lastIndexOf('\\')+1);
                   //alert(fullName.substr(fullName.lastIndexOf('\\')+1));
-                  uploadFileArr.push(fullName.substr(fullName.lastIndexOf('\\')+1));
+                  uploadFileArr.push(fileLastName  + '&nbsp;&nbsp;<a href="javascript:;" onclick="deleteFile(\'' + fileLastName + '\');">删除</a>');
                   
                   var fileElement = document.getElementById("files_preview");  
                   fileElement.innerHTML = fileElement.innerHTML + fileHtml;      
@@ -83,7 +85,8 @@
             	  uploadFileArr.remove(index);
                   document.getElementById("files_preview").removeChild(document.getElementById("file_preview" + index));   
                   document.getElementById("files").removeChild(document.getElementById("file_" + index));      
-              }  
+              }
+              
               function showStatus(obj)  // 显示“正在上传文件”提示信息  
               {  
                 document.getElementById("status").style.visibility="visible";  
@@ -91,27 +94,29 @@
                 var uploadFileNames = uploadFileArr.join("<br/>");
           	  	//alert(uploadFileNames);
           	  
-          	  	$('#FILES', window.parent.document).html(uploadFileNames);
-          	  
+          	  	$('#FILES', window.parent.document).append("<br/>" + uploadFileNames);
+				
           	  	$("#uploadForm").submit();
           	  
               }
               
         </script>  
     </head>  
-    <body>  
-        <form id="uploadForm" enctype="multipart/form-data" action="<%=path%>/multiUpload.do"  method="post">
-            <span id="files"> <%--  在此处插入用于上传文件的input元素 --%>   
-               <input type="file" id="file_0" name="file[0]" onchange="insertNextFile(this)" /> </span>    
-               <input type="button" value="上传 " onclick="showStatus(this);" />
-        </form>
-        <p>  
-        <div id="status" style="visibility: hidden; color: Red">  
-            	正在上传文件  
-        </div>  
-        <p>  
-            <%--  在此处用DOM技术插入上传文件列表项  --%>  
-        <div id="files_preview"  
-            style="overflow: auto"></div>  
+    <body> 
+    		<form id="uploadForm" enctype="multipart/form-data" action="<%=path%>/multiUpload.do"  method="post">
+	            <span id="files"> <%--  在此处插入用于上传文件的input元素 --%>   
+	               <input type="file" id="file_0" name="file[0]" onchange="insertNextFile(this)" /> </span>    
+	               <input type="button" value="上传 " onclick="showStatus(this);" />
+	        </form>
+	        <p>  
+	        <div id="status" style="visibility: hidden; color: Red">  
+	            	正在上传文件  
+	        </div>  
+	        <p>  
+	            <%--  在此处用DOM技术插入上传文件列表项  --%>  
+	        <div id="files_preview"  
+	            style="overflow: auto">
+	        </div>  
+        
     </body>  
 </html> 
