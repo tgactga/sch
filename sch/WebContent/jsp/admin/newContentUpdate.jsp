@@ -109,9 +109,9 @@ function save(AUDIT_TAG){
 		data:{
 			operType : "updateNew",
 			ID : <%=ID%>,
-			NEW_TITLE  : encodeURIComponent(NEW_TITLE),
+			NEW_TITLE  : NEW_TITLE,
 			NEW_TIME : NEW_TIME,
-			NEW_CONTENT : encodeURIComponent(NEW_CONTENT),
+			NEW_CONTENT : NEW_CONTENT,
 			AUDIT_TAG : AUDIT_TAG,
 			FILES  : fileNams
 			

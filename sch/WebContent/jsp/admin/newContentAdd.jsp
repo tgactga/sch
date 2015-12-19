@@ -120,10 +120,10 @@ function save(AUDIT_TAG){
 		
 		data :{
 			operType : "addNew",
-			NEW_FEN : encodeURIComponent(NEW_FEN),
-			NEW_TITLE : encodeURIComponent(NEW_TITLE),
+			NEW_FEN : NEW_FEN,
+			NEW_TITLE : NEW_TITLE,
 			NEW_TIME : NEW_TIME,
-			NEW_CONTENT : encodeURIComponent(NEW_CONTENT),
+			NEW_CONTENT :NEW_CONTENT,// encodeURIComponent(NEW_CONTENT),
 			NEW_TYPE : <%=NEW_TYPE%>,
 			AUDIT_TAG :  AUDIT_TAG,
 			FILES : fileNams

@@ -45,6 +45,26 @@ public class CommonAction extends Action{
 		}
 	    return null;
 	}
+	private ActionForward deleteCommon(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
+			CommonDAO dao = new CommonDAO();
+			boolean tag = dao.deleteCommon(mapPara);
+			if(tag == true){
+				response.getWriter().write("{\"SUCCESS\":\"1\"}");
+			    response.getWriter().close();
+			}else{
+				response.getWriter().write("{\"SUCCESS\":\"0\"}");
+			    response.getWriter().close();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	    return null;
+	}
 	private ActionForward searchContract(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
