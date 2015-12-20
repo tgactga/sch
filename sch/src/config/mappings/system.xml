@@ -58,10 +58,12 @@
 		<result property="COUNT" column="COUNT" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="CommonDAO.analysNews" resultMap="CommonDAO.analysNewsMap" parameterClass="java.util.HashMap">
-		select  issuer_per,chu_id ,chu_name,count  from (select issuer_per,count,chu_id from 
+		SELECT IFNULL(qq.issuer_per,"") AS ISSUER_PER, tt.ID as chu_id,tt.CHU_NAME ,IFNULL(qq.count,0) AS COUNT from chu tt   LEFT JOIN 
+		(select  issuer_per,chu_id ,chu_name,count  from (select issuer_per,count,chu_id from 
 		(select t.issuer_per,count(*) count  from new_content t 
 		where 1=1 and t.new_time between #startTime# and #endTime#
-		group by t.issuer_per) tt  left join user u on tt.issuer_per=u.id) mm left join chu c on mm.chu_id=c.id
+		group by t.issuer_per) tt  left join user u on tt.issuer_per=u.id) mm left join chu c on mm.chu_id=c.id) qq
+		on IFNULL(tt.ID,0) = IFNULL(qq.chu_id,0) 
 	</select>
 	
 	

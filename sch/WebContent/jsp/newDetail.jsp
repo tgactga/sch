@@ -2,7 +2,7 @@
 <%@page import="com.huahong.page.dao.NewDetailDAO;"%>
 <%
 String path = request.getContextPath();
-
+int i = 0;
 String ID = request.getParameter("ID");
 NewDetailDAO dao = new NewDetailDAO();
 List list = dao.getNew(ID);
@@ -84,8 +84,9 @@ function dowload(URL){
 					</div> -->
 				</div>
 				
-				<div class="c_title_author">
-					<span>附件列表：<%=FILES%></span>
+				<div class="c_content_text">
+					<p style="float:left;"> <span>附件列表： </span> </p>
+					<p style="float:left;"><span style="color: red;font-weight:bold;"> <%=FILES%></span></p>
 				</div>
 				
 			</div>

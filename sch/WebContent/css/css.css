@@ -1,10 +1,10 @@
 #Header{
 	/*background:url(images/top.gif) repeat-x left -29px;
            width:980px; height:203px; margin:0;*/
-           background:url(../images/web/main_1410.gif) repeat-x top; overflow:hidden; width:100%; min-width:980px; height:203px; margin-top:2px;  margin-bottom:0px; /*201206���޸�*/
+           background:url(../images/web/main_1410.gif) repeat-x top; overflow:hidden; width:100%; min-width:980px; height:203px; margin-top:2px;  margin-bottom:0px; /*201206锟斤拷锟睫革拷*/
 	}
     .topBox{ width:auto; height:28px;}/**/
-    .topBox .topTools{ float:right; width:349px; padding:3px 20px 0 10px; height:24px; line-height:24px; font-family:Tahoma, ""; color:#999;}
+    .topBox .topTools{ float:right; width:349px; padding:3px 90px 0 10px; height:24px; line-height:24px; font-family:Tahoma, ""; color:#999;}
 	.topBox .topTools a{ width:75px; background:url(images/icon1.gif) no-repeat 0 5px; font-size:12px; color:#fff; margin-left:20px;}
 	.topBox .topTools a:hover{ color:#F00;}
     #Header .logo{ width:auto; height:135px;}/*logoFLASH*/
@@ -83,7 +83,7 @@ position:relative;
 	#menu_list_92 li { padding:0 5px;}
 	.contactBox { margin:0; }
 
-#footer { background:url("../images/web/main_141.gif") repeat-x top; clear:both; /*��� ��*/}
+#footer { background:url("../images/web/main_141.gif") repeat-x top; clear:both; /*锟斤拷锟� 锟斤拷*/}
 .mode-friendLinks { text-align:center; padding-top:3px; height:26px;}
 
 #footerBox dt{ height:40px; line-height:40px; font-family:""; text-align:center; color:#0870a4;}

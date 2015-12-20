@@ -75,7 +75,7 @@ $(function(){
 		procmsg: "正在查询数据，请稍候 ...",
 		rp: 20,
 		rpOptions: [10, 20, 35, 50, 80, 100],
-		pagestat: "显示记录从{from}到{to}，总数 {total} 条",
+		pagestat: "显示记录从1到24，总数 24 条",
 		nomsg: '没有符合条件的记录存在',
 		singleSelect : true//选择单行
 	});
