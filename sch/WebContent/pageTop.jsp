@@ -53,9 +53,9 @@ function Login(){
 </script>
 <body>
 	<div id="Header" style="height:28px;">
-		<div class="topBox" style="width:1007px; margin:5 auto; margin-bottom:2px;">
+		<div class="topBox" style="width:100%; margin:5 auto; margin-bottom:2px;">
 		    
-			<div class="topTools" style="color:#FFFFFF; ">
+			<div class="topTools" style="color:#FFFFFF; float :right;width:549px;">
 				<span class="localTime">
 					<script language="javascript" type="text/javascript" src="<%=path%>/js/date.js"></script>
 				</span>
@@ -63,7 +63,7 @@ function Login(){
 				<a href="javascript:if(document.all){window.external.addFavorite('www.hbhcgz.html','新洲一中');}else if(window.sidebar){window.sidebar.addPanel('新洲一中', 'http://www.xinzhou.cn','');}" title="加入收藏">加入收藏</a>
 			</div>
 			 
-		 <div class="topTools"><span   style="color: red;font-weight:bold;">欢迎您访问武汉市新洲区第一中学网站！ 博大 &nbsp &nbsp方正 &nbsp &nbsp尚美 &nbsp &nbsp创新</span> </div>
+		 <div class="topTools" style="width:450px;padding:0px 0px 0px 245px;float:left;"><span   style="color: red;font-weight:bold;">欢迎您访问武汉市新洲区第一中学网站！  &nbsp &nbsp &nbsp &nbsp博大 &nbsp &nbsp方正 &nbsp &nbsp尚美 &nbsp &nbsp创新</span> </div>
 		</div>
 	</div>
 	<div class="header" style="width:100%;">
