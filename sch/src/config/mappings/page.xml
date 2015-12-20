@@ -74,10 +74,11 @@
 		<result property="NEW_TYPE_NAME" column="NEW_TYPE_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="NEW_FEN_NAME" column="NEW_FEN_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 		<result property="CHU_NAME" column="CHU_NAME" javaType="String" jdbcType="VARCHAR" nullValue=""/>
+		<result property="FILES" column="FILES" javaType="String" jdbcType="VARCHAR" nullValue=""/>
 	</resultMap>
 	<select id="NewDetailDAO.getNew" resultMap="NewDetailDAO.getNewMap" parameterClass="java.lang.String">
 		SELECT N.ID,N.NEW_TITLE,N.NEW_TIME,U.USER_NAME AS ISSUER_PER,N.NEW_CONTENT,N.NEW_TYPE,N.NEW_FEN,N.NEW_NUM,
-		T.NAME AS NEW_TYPE_NAME,B.CONTENT AS NEW_FEN_NAME,C.CHU_NAME FROM new_content N 
+		T.NAME AS NEW_TYPE_NAME,B.CONTENT AS NEW_FEN_NAME,C.CHU_NAME,N.FILES FROM new_content N 
 		LEFT JOIN tree T ON T.ID = N.NEW_TYPE
 		LEFT JOIN tree_base B ON B.ID = N.NEW_FEN 
 		LEFT JOIN user U ON U.ID = N.ISSUER_PER

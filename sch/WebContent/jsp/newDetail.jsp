@@ -16,6 +16,10 @@ String NEW_NUM = ((HashMap)list.get(0)).get("NEW_NUM").toString();
 String NEW_TYPE_NAME = ((HashMap)list.get(0)).get("NEW_TYPE_NAME").toString();
 String NEW_FEN_NAME = ((HashMap)list.get(0)).get("NEW_FEN_NAME").toString();
 String CHU_NAME = ((HashMap)list.get(0)).get("CHU_NAME").toString();
+String FILES = ((HashMap)list.get(0)).get("FILES").toString();
+
+FILES = FILES.replaceAll("deleteFile", "dowload");
+FILES = FILES.replaceAll("删除", "下载");
 
 dao.addNum(ID);
 //System.out.println(list);
@@ -32,7 +36,9 @@ dao.addNum(ID);
 	<link href="<%=path%>/css/css.css" rel="stylesheet" type="text/css" />
 	<link href="<%=path%>/css/article.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-
+function dowload(URL){
+	location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=dowload");
+}
 </script>
 </head>
 <body>
@@ -59,6 +65,7 @@ dao.addNum(ID);
 					<span>点击数：<a href="#"><%=NEW_NUM%></a></span>
 					<span>发布时间：<%=NEW_TIME%></span>
 				</div>
+				
 				<!-- 正文 -->
 				<div class="c_content_text">
 					<div class="c_content_overflow" id="fontzoom">
@@ -76,6 +83,11 @@ dao.addNum(ID);
 						<p style="float:right;"><font style="color:red">下一篇：</font><a href="" target="_self">清明节讲话</a>[ 05-25 ]</p>
 					</div> -->
 				</div>
+				
+				<div class="c_title_author">
+					<span>附件列表：<%=FILES%></span>
+				</div>
+				
 			</div>
 			<!-- 主体内容结束 -->
 		</div>

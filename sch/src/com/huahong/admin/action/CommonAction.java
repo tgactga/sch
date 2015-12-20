@@ -258,7 +258,7 @@ public class CommonAction extends Action{
 			    	String CHU_ID = exchange.toHtml(((HashMap)list.get(i)).get("CHU_ID").toString());
 			    	String CHU_NAME = exchange.toHtml(((HashMap)list.get(i)).get("CHU_NAME").toString());
 			    	String COUNT = exchange.toHtml(((HashMap)list.get(i)).get("COUNT").toString());
-			    	json+="{\"id\":\"\",";
+			    	json+="{\"id\":\""+i+"\",";
 			    	json+="\"cell\":[\""+(i+a)+"\",\""+CHU_NAME+"\",\""+COUNT+"\",\""+ISSUER_PER+"\",\""+CHU_ID+"\"]},";
 			    }
 			    json=json.substring(0,json.length()-1);

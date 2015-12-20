@@ -176,6 +176,11 @@ public class DocManagementAction extends Action{
 	        	String path = request.getParameter("path");
 	            // path是指欲下载的文件的路径。
 	            File file = new File(path);
+	            if(!file.exists()){
+	            	//如果文件不存在，那么加上下载路径再试试
+	            	file = new File(fileUploadPath + path);
+	            	path = fileUploadPath + path;
+	            }
 	            // 取得文件名。
 	            String filename = file.getName();
 	            // 取得文件的后缀名。
@@ -198,6 +203,13 @@ public class DocManagementAction extends Action{
 	            toClient.close();
 	        } catch (IOException ex) {
 	            ex.printStackTrace();
+	            try {
+					response.getWriter().write("下载文件失败，原因：" + ex.getMessage());
+					 response.getWriter().close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	            return null;
 	        }
 	        return response;
 	    }
