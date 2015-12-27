@@ -1,4 +1,4 @@
-修改表结构的语句：
+--修改表结构的语句：
 
 ALTER TABLE `new_content`
 ADD COLUMN `FILES`  varchar(20000) NULL AFTER `EDIT_TIME`;
@@ -6,7 +6,7 @@ ADD COLUMN `FILES`  varchar(20000) NULL AFTER `EDIT_TIME`;
 INSERT INTO `role_tree` VALUES (631, 2, 118);
 
 INSERT INTO `role_tree` VALUES (632, 2, 119);
-INTO `tree` VALUES (118, 113, '文件管理', '/jsp/admin/docManagement.jsp', '0');
+INSERT INTO `tree` VALUES (118, 113, '文件管理', '/jsp/admin/docManagement.jsp', '0');
 INSERT INTO `tree` VALUES (119, 113, '统计分析', '/jsp/admin/analysNews.jsp', '0');
 
 UPDATE  `tree` N  SET  N.PATH_FILE = '/jsp/admin/allUserLog.jsp'   WHERE N.ID = '117'
@@ -24,7 +24,7 @@ CREATE TABLE `userlog` (
  
   `BUTTON` varchar(50) DEFAULT NULL COMMENT '操作按钮',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ;
 
 
 INSERT INTO `role` VALUES (4, '004', '处室管理员', '只能发布、审核自己处室的数据');
