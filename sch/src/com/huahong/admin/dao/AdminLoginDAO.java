@@ -25,5 +25,15 @@ public class AdminLoginDAO extends BaseDAO{
 			return false;
 		}
 	}
+	
+	public boolean insertUserLogs(HashMap map){
+		try {
+			 dao.insert("AdminLoginDAO.insertUserLogs", map);
+			  return true;
+		} catch (Exception e) {
+			Log.error("AdminLoginDAO.insertUserLogs方法出现异常 " + e.getMessage());
+			return false;
+		}
+	}
 
 }

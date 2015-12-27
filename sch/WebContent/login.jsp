@@ -2,12 +2,23 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+String ip = request.getHeader("x-forwarded-for"); 
+if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+    ip = request.getHeader("Proxy-Client-IP"); 
+} 
+if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+    ip = request.getHeader("WL-Proxy-Client-IP"); 
+} 
+if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip) || "0:0:0:0:0:0:0:1".equals(ip)) { 
+    ip = request.getRemoteAddr(); 
+}
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 5.01 Transitional//EN">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>合同管理</title>
+    <title>用户管理</title>
     <link href="<%=path%>/css/login.css" rel="stylesheet" />
     <link href="<%=path%>/js/msgbox/msgbox.css" rel="stylesheet" />
 	<script type="text/javascript" src="<%=path%>/js/jquery/jquery-1.9.1.js"></script>
@@ -16,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <style>
 </style>
 <script type="text/javascript">
+var localIp = '<%=ip%>';
 function refresh(obj) {
 	obj.src = "imageServlet?"+Math.random();
 }

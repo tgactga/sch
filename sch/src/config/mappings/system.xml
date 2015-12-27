@@ -35,6 +35,12 @@
 	<update id="AdminLoginDAO.updateAdminUser" parameterClass="java.util.HashMap">
 		UPDATE user  SET USER_PASSWORD=#USER_PASSWORD#  WHERE  USER_CODE=#USER_CODE#
 	</update>
+	<!-- 插入用户登录日志 -->
+	<insert id="AdminLoginDAO.insertUserLogs" parameterClass="java.util.HashMap">
+		INSERT INTO userlog (ID,USER_CODE,LOGIN_TIME,IP,URL,BUTTON)   VALUES 
+		 (#ID#,#USER_CODE#,#LOGIN_TIME#,#IP#,#URL#,#BUTTON#)
+	</insert>
+	
 	<!-- 左侧树 -->
 	<resultMap id="LeftTreeDAO.searchLeftUserListMap" class="java.util.HashMap">
 		<result property="ID" column="ID" javaType="String" jdbcType="VARCHAR" nullValue=""/>

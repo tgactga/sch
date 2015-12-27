@@ -1,5 +1,7 @@
 ﻿package com.huahong.admin.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,6 +64,8 @@ public class AdminLoginAction extends Action{
 	private ActionForward adminLogin(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); 
+			String nowtime = sdf.format(new Date());
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
 			HashMap mapPara = GetParam.GetParamValue(request,"utf-8","utf-8");
@@ -83,6 +87,8 @@ public class AdminLoginAction extends Action{
 					session.setAttribute("ROLE_ID", ((HashMap)list.get(0)).get("ROLE_ID").toString());
 					session.setAttribute("ROLE_NAME", ((HashMap)list.get(0)).get("ROLE_NAME").toString());
 					session.setAttribute("CHU_ID", ((HashMap)list.get(0)).get("CHU_ID").toString());
+					//session.setAttribute("IP", mapPara.get("localIp").toString());
+					session.setAttribute("LOGIN_TIME", nowtime);
 					response.getWriter().write("{\"SUCCESS\":\"1\"}");
 				    response.getWriter().close();
 				}else{//用户名或密码输入有误

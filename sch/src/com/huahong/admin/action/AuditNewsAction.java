@@ -3,14 +3,17 @@ package com.huahong.admin.action;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.huahong.admin.dao.AdminLoginDAO;
 import com.huahong.admin.dao.AuditNewsDAO;
 import com.huahong.erp.util.GetParam;
 import com.huahong.erp.util.exchange;
@@ -20,6 +23,7 @@ public class AuditNewsAction extends Action{
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
 		try {
+			 
 			String operType = request.getParameter("operType");
 			if(operType.equals("searchAuditNew")){
 				return searchAuditNew(mapping, form, request, response);
@@ -40,6 +44,7 @@ public class AuditNewsAction extends Action{
 			mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 			mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
 			AuditNewsDAO dao = new AuditNewsDAO();
+			
 			CommonFun fun = new CommonFun();
 			String condition = "";
 			String NEW_TITLE_S = new String(mapPara.get("NEW_TITLE_S").toString().getBytes("ISO-8859-1"),"utf-8");
@@ -71,6 +76,17 @@ public class AuditNewsAction extends Action{
 			int page = a/b;
 			page = page + 1;
 			List list = dao.getAuditNewList(mapPara);
+//			HttpSession session = request.getSession();
+//			HashMap usermap = new HashMap(); 
+//			usermap.put("ID", "1");
+//			usermap.put("USER_CODE", session.getAttribute("USER_CODE"));
+//			usermap.put("LOGIN_TIME", session.getAttribute("LOGIN_TIME"));
+//			usermap.put("IP", session.getAttribute("IP"));
+//			usermap.put("URL", session.getAttribute("URL"));
+//			usermap.put("BUTTON", session.getAttribute("SHEHE"));
+//			AdminLoginDAO logindao = new AdminLoginDAO();
+//			logindao.insertUserLogs(usermap);
+			
 			String path = request.getContextPath();
 			if(list!=null && list.size()>0){
 				json+="{\"page\":"+page+",\"total\":"+total+",\"rows\":[";
