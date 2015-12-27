@@ -157,7 +157,10 @@ $(function(){
                                                                         <td align="left">
 																			&nbsp;用户名：<input id="NEW_TITLE_S" type="text" />&nbsp;&nbsp;
 																			 
-																			 
+																			 &nbsp;登录时间：<input id="NEW_TIME_START" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+																			<img src="<%=path%>/images/blueui/lang.gif" />
+																			<input id="NEW_TIME_END" type="text" class="Wdate" style="width:120px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+																			
 																			<input id="search" type="submit" value="查询"/>
                                                                         	 
                                                                         </td>

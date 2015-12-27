@@ -53,9 +53,25 @@ public class UserManagementAction extends Action{
 				HashMap mapPara = GetParam.GetParamValue(request,"ISO-8859-1","utf-8");
 				mapPara.put("rp", Integer.parseInt(mapPara.get("rp").toString()));
 				mapPara.put("page",(Integer.parseInt(mapPara.get("page").toString())-1)*Integer.parseInt(mapPara.get("rp").toString()));
+				String condition = "";
 				UserManagementDAO dao = new UserManagementDAO();
 				CommonFun fun = new CommonFun();
-				int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM userlog");
+				
+				
+				String NEW_TIME_START = new String(mapPara.get("NEW_TIME_START").toString().getBytes("ISO-8859-1"),"UTF-8");
+				String NEW_TIME_END = new String(mapPara.get("NEW_TIME_END").toString().getBytes("ISO-8859-1"),"UTF-8");
+				
+				if(!NEW_TIME_START.equals("") && !NEW_TIME_END.equals("")){
+					condition += "N.NEW_TIME>='"+NEW_TIME_START+"' AND N.NEW_TIME<='"+NEW_TIME_END+"' AND ";
+				}else if(NEW_TIME_START.equals("") && !NEW_TIME_END.equals("")){
+					condition += "N.NEW_TIME>='1900-01-01 00:00:00' AND N.NEW_TIME<='"+NEW_TIME_END+"' AND ";
+				}
+				if(!condition.equals("")){
+					condition = condition.substring(0,condition.length()-4);
+					condition = " AND " + condition;
+					mapPara.put("condition", condition);
+				}
+				int total = fun.getTotalItem("SELECT COUNT(*) AS CON FROM userlog" + condition);
 				String json="";
 				int a = Integer.parseInt(mapPara.get("page").toString())+1;
 				int b = Integer.parseInt(mapPara.get("rp").toString());

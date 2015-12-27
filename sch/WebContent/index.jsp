@@ -75,8 +75,8 @@ $(function(){
 	<div class="main">
 		<div class="huandeng fdL">
 			<script type="text/javascript">
-				var swf_width = 650;
-        		var swf_height = 487;
+				var swf_width = 640;
+        		var swf_height = 457;
         		var config = '6|0xffffff|0x0099FF|20|0xffffff|0x0099FF|0x000000';//config 设置分别为: 自动播放时间(秒)|文字颜色|文字背景色|文字背景透明度|按键数字色|当前按键色|普通按键色
         		var files = '<%=files%>';
         		var links = '<%=links%>';
@@ -92,7 +92,10 @@ $(function(){
 			</script>
 		</div>
 		<div class="tongzhi fdR">
-		 <div class="tongzhi_title"><div class="neitop" style="padding-left:35px;">通知公告</div><a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=3&NEW_FEN=7">更多>></a></div>
+		 <div class="tongzhi_title">
+		 	<div class="neitop" style="padding-left:35px;">通知公告</div>
+		 	<a href="<%=path%>/jsp/newMore.jsp?NEW_TYPE=3&NEW_FEN=7">更多>></a>
+		  </div>
 		 <div class="tongzhi_li">
 				<ul>
 					<%
@@ -103,7 +106,7 @@ $(function(){
 						String NEW_TIMEJ = NEW_TIME.substring(NEW_TIME.indexOf("-")+1, NEW_TIME.length());
 						String NEW_NUM = ((HashMap)listTongZhi.get(i)).get("NEW_NUM").toString();
 						String SPE_TAG = ((HashMap)listTongZhi.get(i)).get("SPE_TAG").toString();
-						out.print("<li><a href=\""+path+"/jsp/newDetail.jsp?ID="+ID+"\" target=\"_blank\" title=\""+NEW_TITLE+"\" style='width:200px;display:block;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>");
+						out.print("<li><a href=\""+path+"/jsp/newDetail.jsp?ID="+ID+"\" target=\"_blank\" title=\""+NEW_TITLE+"\" style='width:300px;display:block;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;'>");
 						if(SPE_TAG.equals("1")){
 							out.print("<strong><font color='#FF0000'>"+NEW_TITLE+"</font></strong>");
 						}else{

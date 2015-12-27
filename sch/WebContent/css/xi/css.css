@@ -67,11 +67,11 @@ margin: 8px 4px 0 0;
 .news_li ul li span { float:right;}
 .news_li ul li a:hover { color:#F00;}
 
-.tongzhi { width:241px; height:320px;}
-.tongzhi_title { background:url(../images/1_05.jpg) no-repeat; width:241px; height:39px;}
+.tongzhi { width:340px; height:520px;}
+.tongzhi_title { background:url(../images/1_13.jpg) no-repeat; width:320px; height:39px;}
 .tongzhi_title a { float:right; color:#F00; line-height:39px; padding-right:10px; text-decoration:none;}
-.tongzhi_li { width:232px; height:290px; border-left:1px solid #dddddd; border-bottom:1px solid #dddddd; border-right:1px solid #dddddd; padding-left:7px; }
-.tongzhi_li ul li { background:url(../images/about_21.jpg) no-repeat left center; text-indent:1em; width:225px; border-bottom:1px dashed #dddddd;}
+.tongzhi_li { width:310px; height:415px; border-left:1px solid #dddddd; border-bottom:1px solid #dddddd; border-right:1px solid #dddddd; padding-left:7px; }
+.tongzhi_li ul li { background:url(../images/about_21.jpg) no-repeat left center; text-indent:1em; width:310px; border-bottom:1px dashed #dddddd;}
 .tongzhi ul li a { text-decoration:none; line-height:30px;color:#333333;}
 .tongzhi_li ul li a:hover { color:#F00;}
 
@@ -275,3 +275,5 @@ table,td,tr,th{
 .unnamed1 {
 	LINE-HEIGHT: 20pt; COLOR: #0156a7  ; FONT-SIZE: 12px
 }
+
+
