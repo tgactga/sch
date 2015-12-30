@@ -22,6 +22,10 @@ String ID = request.getParameter("ID").toString();
 CommonDAO dao = new CommonDAO();
 List newList = dao.getNewDetail(ID);
 String NEW_CONTENT = ((HashMap)newList.get(0)).get("NEW_CONTENT").toString();
+
+String files = ((HashMap)newList.get(0)).get("FILES")==null?"无":((HashMap)newList.get(0)).get("FILES").toString();
+
+
 NEW_CONTENT = StringUtils.replaceBlank(NEW_CONTENT);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -94,6 +98,13 @@ function save(AUDIT_TAG){
 		}
 	});
 }
+
+function deleteFile(fileName){ //删除文件
+	var filesTmp = $("#FILES").html();
+	var filesTmp1 = filesTmp.replace('<br>'+fileName  + '&nbsp;&nbsp;<a href="javascript:;" onclick="deleteFile(\'' + fileName + '\');">删除</a>','');
+	$('#FILES').html(filesTmp1);
+}
+
 </script>
 </head>
 <body>
@@ -166,6 +177,16 @@ function save(AUDIT_TAG){
 																	<textarea id="NEW_CONTENT"></textarea>
 	                                                            </td>
 															</tr>
+															
+															<tr>
+																<td class="tdfir" align="center" style="width:10%;">附件列表</td>
+																<td class="tdSen" align="left" style="width:90%;">
+																	<div class="c_content_overflow" id="FILES">
+																		<%=files%>
+																	</div>
+	                                                            </td>
+															</tr>
+															
 														</table>
 														<div style="padding-top:5px;padding-left:30%;">
 															<input id="preview" style="width:55px;" type="submit" value="预览"/>&nbsp;&nbsp;
