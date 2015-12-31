@@ -67,7 +67,7 @@ margin: 8px 4px 0 0;
 .news_li ul li span { float:right;}
 .news_li ul li a:hover { color:#F00;}
 
-.tongzhi { width:340px; height:520px;}
+.tongzhi { width:340px; height:460px;}
 .tongzhi_title { background:url(../images/1_13.jpg) no-repeat; width:320px; height:39px;}
 .tongzhi_title a { float:right; color:#F00; line-height:39px; padding-right:10px; text-decoration:none;}
 .tongzhi_li { width:310px; height:415px; border-left:1px solid #dddddd; border-bottom:1px solid #dddddd; border-right:1px solid #dddddd; padding-left:7px; }
