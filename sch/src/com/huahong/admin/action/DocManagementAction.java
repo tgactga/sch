@@ -174,6 +174,7 @@ public class DocManagementAction extends Action{
 				HttpServletRequest request, HttpServletResponse response) {
 	        try {
 	        	String path = request.getParameter("path");
+	        	path = new String(path.getBytes("iso-8859-1"), "UTF-8");
 	            // path是指欲下载的文件的路径。
 	            File file = new File(path);
 	            if(!file.exists()){
@@ -194,7 +195,7 @@ public class DocManagementAction extends Action{
 	            // 清空response
 	            response.reset();
 	            // 设置response的Header
-	            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes()));
+	            response.addHeader("Content-Disposition", "attachment;filename=" + new String(new String(filename.getBytes("UTF-8"),"iso-8859-1")));
 	            response.addHeader("Content-Length", "" + file.length());
 	            OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
 	            response.setContentType("application/octet-stream");

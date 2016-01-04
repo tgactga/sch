@@ -104,10 +104,10 @@ $(function(){
 	});
 });
 function dowload(URL){
-	location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=dowload");
+	location.replace("<%=path%>/DocManagementAction.do?path="+encodeURIComponent(URL)+"&operType=dowload");
 }
 function deleteDoc(URL){
-	 location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=deleteDoc");
+	 location.replace("<%=path%>/DocManagementAction.do?path="+encodeURIComponent(URL)+"&operType=deleteDoc");
 }
 </script>
 </head>

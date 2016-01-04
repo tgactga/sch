@@ -37,7 +37,7 @@ dao.addNum(ID);
 	<link href="<%=path%>/css/article.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 function dowload(URL){
-	location.replace("<%=path%>/DocManagementAction.do?path="+URL+"&operType=dowload");
+	location.replace("<%=path%>/DocManagementAction.do?path="+encodeURIComponent(URL)+"&operType=dowload");
 }
 </script>
 </head>
