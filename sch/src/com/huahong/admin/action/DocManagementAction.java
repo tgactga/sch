@@ -195,7 +195,8 @@ public class DocManagementAction extends Action{
 	            // 清空response
 	            response.reset();
 	            // 设置response的Header
-	            response.addHeader("Content-Disposition", "attachment;filename=" + new String(new String(filename.getBytes("UTF-8"),"iso-8859-1")));
+	            response.addHeader("Content-Disposition", "attachment;filename=" 
+	            		+ new String(new String(filename.getBytes("UTF-8"),"iso-8859-1")));
 	            response.addHeader("Content-Length", "" + file.length());
 	            OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
 	            response.setContentType("application/octet-stream");
