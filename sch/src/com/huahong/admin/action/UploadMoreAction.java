@@ -26,7 +26,7 @@ public class UploadMoreAction extends Action {
     	InputStream in = UploadMoreAction.class.getClassLoader().getResourceAsStream("/config/fileupload.properties");
     	try {
 			prop.load(in);
-			fileUploadPath = prop.getProperty("fileUploadPath");
+			fileUploadPath = System.getProperty("user.dir") + prop.getProperty("fileUploadPath");
 			File path = new File(fileUploadPath);
 			if(!path.exists()){
 				path.mkdir();
