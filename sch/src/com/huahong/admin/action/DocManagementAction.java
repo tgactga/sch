@@ -170,7 +170,7 @@ public class DocManagementAction extends Action{
 	}
 
 	
-	 public HttpServletResponse download(ActionMapping mapping, ActionForm form,
+	 public ActionForward download(ActionMapping mapping, ActionForm form,
 				HttpServletRequest request, HttpServletResponse response) {
 	        try {
 	        	String path = request.getParameter("path");
@@ -211,9 +211,8 @@ public class DocManagementAction extends Action{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-	            return null;
 	        }
-	        return response;
+	        return null;
 	    }
 	 
 }
